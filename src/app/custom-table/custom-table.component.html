@@ -1,0 +1,24 @@
+    <table class="table" border="1">
+        <thead>
+            <tr>
+                <ng-container *ngFor="let column of columnValue">
+                    <th><div class="pull-left">{{column.value}}</div> 
+                        <div class="pull-right"><span *ngIf="downarrow" (click)="ascSort(column.key)" class="downarrow"><i
+                            class="fa fa-sort-desc" aria-hidden="true"></i> </span>
+                    <span *ngIf="uparrow" (click)="desSort(column.key)" class="uparrow"> <i class="fa fa-sort-asc"
+                            aria-hidden="true"></i> </span></div> 
+                    </th>
+                </ng-container>
+        
+            </tr>
+        </thead>
+        <tbody>
+        
+            <tr *ngFor="let dataList of allData">
+            <td >{{dataList.date}}</td>
+            <td >{{dataList.amount}}</td>
+            <td >{{dataList.phone}}</td>
+            <td >{{dataList.description}}</td>
+        </tr>
+        </tbody>
+    </table>
