@@ -3,72 +3,31 @@
       { 
         "id": 1,
         "date": "2019-04-30T02:15:12.356Z",
-        "amount": "100",
+        "amount": 100,
         "phone": "202-555-0166",
         "description": "j quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
       },
       { 
         "id": 2,
         "date": "2019-05-30T02:15:12.356Z",
-        "amount": "456",
+        "amount": 456,
         "phone": "202-555-0194",
         "description": "r quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
       },
       { 
         "id": 3,
         "date": "2019-06-30T02:15:12.356Z",
-        "amount": "1123",
+        "amount": 1123,
         "phone": "202-555-0160",
         "description": "f quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
       },
       { 
         "id": 4,
         "date": "2019-07-30T02:15:12.356Z",
-        "amount": "989",
+        "amount": 989,
         "phone": "202-555-0166",
         "description": "b quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      { 
-        "id": 5,
-        "date": "2019-08-30T02:15:12.356Z",
-        "amount": "556",
-        "phone": "202-555-0183",
-        "description": "c quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      { 
-        "id": 6,
-        "date": "2019-09-30T02:15:12.356Z",
-        "amount": "557",
-        "phone": "202-855-0183",
-        "description": "a quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      { 
-        "id": 7,
-        "date": "2019-10-30T02:15:12.356Z",
-        "amount": "599",
-        "phone": "202-595-0183",
-        "description": "d quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-       { 
-        "id": 8,
-        "date": "2019-11-30T02:15:12.356Z",
-        "amount": "656",
-        "phone": "202-455-0183",
-        "description": "s quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      { 
-        "id": 9,
-        "date": "2019-12-30T02:15:12.356Z",
-        "amount": "516",
-        "phone": "202-515-0183",
-        "description": "p quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      { 
-        "id": 10,
-        "date": "2016-08-30T02:15:12.356Z",
-        "amount": "956",
-        "phone": "202-355-0183",
-        "description": "z quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
       }
+     
     ]
   }
