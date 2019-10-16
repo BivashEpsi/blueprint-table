@@ -2,126 +2,84 @@
 
 .table
 {
-    border-collapse: separate;
+    width: 100%;
     border-spacing: 0;
-    border: 1px solid $border-secondary;
-    border-top: 0;
-    margin-bottom: 5px;
-    color: $midnight;
-}
+    border: 1px solid $border-color-secondary;
 
-.table td
-{
-    border: 0;
-    vertical-align: middle;
-}
-
-th
-{
-    padding: 0;
-}
-
-td
-{
-    padding: 10px 15px;
-}
-
-thead
-{
-    background: $midnight;
-
-    th 
-    {   
-        width: 1030px;
-        background-color: $cloudy-blue;
-        padding: 11px 15px 12px 15px;
-        
-        &:last-of-type
+    thead
+    {
+        th 
         {
-            border-right-color: $border-secondary;
-        }
-
-        &.th-sorted
-        {
-            cursor: pointer;
-        }
-
-        &.action-column
-        {
-            padding: 10px 40px 10px 15px;
-
-            &::after
+            border: 0;
+            border-right: 1px solid $border-color-primary;
+            padding: 0;
+            background: $haze;
+            
+            &:last-child
             {
-                display: none;
+                border-right-color: transparent;
+            }
+    
+            .th-sortable
+            {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border: 0;
+                padding: 10px 15px;
+                background: transparent;
+                font-size: $font-size-body;
+                font-weight: $font-weight-semi-bold;
+                text-align: left;
+                cursor: pointer;
+            
+                &::after
+                {
+                    content: $icon-caret-down; // TODO: toggle $icon-caret-down $icon-caret-up on click
+                    font-family: $font-family-icon;
+                    position: absolute;
+                    right: 15px;
+                    transform: translateY(2px);
+                    opacity: .5; // TODO: when actively sorted, change opacity to 1
+                }
             }
         }
     }
-
-    th::after
+    
+    tbody
     {
-        position: absolute;
-        padding-bottom: 5px;
-        opacity: .5;
-    }
-
-    th.sortDesc::after
-    {
-        content: $icon-sort-up;
-        opacity: 1;
-    }
-}
-
-tbody
-{
-    tr
-    {
-        outline: 1px solid transparent;
-
-        &:nth-child(even)
+        tr
         {
-            background: $cloud;
+            &:nth-child(even)
+            {
+                background: $cloud;
+            }
+    
+            &:hover
+            {
+                outline: 1px solid $accent-color-primary;
+                background: $ice;
+            }
+            
+            th,
+            td
+            {
+                padding: 10px 15px;
+                vertical-align: middle;
+            }
         }
 
-        &:hover
+        .table-empty
         {
-            outline: 1px solid $accent-primary;
-            background: $ice;
+            &:hover
+            {
+                outline: 0;
+            }
+    
+            & td
+            {
+                font-weight: $font-weight-semi-bold;
+            }
         }
     }
-
-    tr.table-empty
-    {
-        &:hover
-        {
-            outline: 0;
-        }
-
-        & td
-        {
-            font-weight: $semi-bold;
-        }
-    }
-}
-
-.table-loading-icon
-{
-    margin-right: 5px;
-}
-
-.Standard-Table {
-    background-color: $white;
-}
-  
-th i.fa.fa-sort-asc{
-    position: relative;
-    cursor: pointer;
-}
-
-th i.fa.fa-sort-desc{
-    cursor: pointer;
-}   
-
-.tbl-justify {
-    display: flex;
-    justify-content: space-between;
 }

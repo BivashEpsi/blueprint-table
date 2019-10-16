@@ -1,19 +1,86 @@
-$haze : #CBD6E2;
-$cloudy-blue : $haze; 
-$white : #FFF;
-$border-secondary : $haze;
-$cloud: #F5F8FA;;
-$ice: #E7EFFD;
-$storm: #516F90;
-$regular: 400;
-$semi-bold: 600;
-$bold: 700;
-$extra-bold: 800;
-$italic: italic;
-$border-primary: $storm;
-$font-family-icon: "Font Awesome 5 Free"; // only used for CSS psuedo-elements
-$icon-sort-down: "\f0dd";
-$icon-sort-up: "\f0de";
-$midnight : #221f4d;
+//
+// color palette
+//
+
+// primary colors
+$apricot: #FDA94E;
 $ultramarine: #0F5EF0;
-$accent-primary: $ultramarine;
+$midnight: #221F4D;
+$coconut: #FFFFFF;
+
+// secondary blues
+$cobalt: #0B42A8;
+$blueberry: #0C4BC0;
+$cornflower: #B7CFFA;
+$ice: #E7EFFD;
+
+// secondary greys
+$storm: #516F90;
+$haze: #CBD6E2;
+$mist: #EAF0F6;
+$cloud: #F5F8FA;
+
+// tertiary colors
+$shamrock: #05AE77;
+$clementine: #FF7B00;
+$tomato: #E62325;
+$brick: #A11214;
+
+
+//
+// abstracted utility variables
+//
+
+// font families
+$font-family-default: 'Open Sans', sans-serif;
+$font-family-icon: 'FontAwesome'; // only used for CSS pseudo elements
+
+// font sizes
+$font-size-body: 12px;
+$font-size-small: 10px;
+$font-size-h1: 22px;
+$font-size-h2: 15px;
+$font-size-h3: 12px;
+$font-size-display1: 22px;
+$font-size-display2: 15px;
+$font-size-display3: 12px;
+
+// font weights
+$font-weight-regular: 400;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+// font colors
+$font-color-primary: $midnight;
+$font-color-secondary: $storm;
+
+// accent colors
+$accent-color-primary: $ultramarine;
+$accent-color-primary-hover: $blueberry;
+$accent-color-secondary: $apricot;
+
+// link colors
+$link-color-primary: $ultramarine;
+
+// border colors
+$border-color-primary: $storm;
+$border-color-secondary: $haze;
+
+// feedback colors
+$feedback-color-success: $shamrock;
+$feedback-color-alert: $clementine;
+$feedback-color-warning: $tomato;
+$feedback-color-warning-hover: $brick;
+
+// font awesome icons
+$icon-caret-up: "\f0d8";
+$icon-caret-down: "\f0d7";
+
+// shadows
+$box-shadow-primary: 0 1px 10px 0 rgba($midnight, 0.3); // used for modals, overlay messaging, and login screen form containers
+$box-shadow-secondary: 0 2px 8px 0 $haze; // used for tiles, and tooltips
+$box-shadow-tertiary: 1px 1px 3px 0 rgba($midnight, 0.2); // used for expanded dropdown menus and expanded date/time pickers
+$box-shadow-nav-primary: 0 0 7px 0 rgba($cobalt, 0.2); // used for the primary navigation
+$box-shadow-focus-default: 0 0 0 0.2rem rgba($cornflower, 1);
+$box-shadow-focus-warning: 0 0 0 0.2rem rgba($feedback-color-warning, 0.25);
+$box-shadow-focus-readonly: 0 0 0 0.2rem rgba($storm, 0.3);

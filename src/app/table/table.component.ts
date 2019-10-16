@@ -70,15 +70,14 @@ export class TableComponent implements OnInit, OnDestroy {
   getClassName(index: number, sortType: string): string {
     if (this.sortRowIndex === index && true === this.descending && 'desc' === sortType) {
       this.boolSortTypeCheck = true;
-      return 'fa fa-sort-asc';
+      return 'fa fa-caret-up';
     } else {
       this.boolSortTypeCheck = false;
-      return 'fa fa-sort-desc';
+      return 'fa fa-caret-down';
     }
   }
 
   ngOnDestroy() {
     this.loadService.unsubscribe();
   }
-
 }

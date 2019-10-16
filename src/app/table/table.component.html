@@ -1,18 +1,19 @@
+<!--
+    TODO:
+    on click of button.th-sortable
+    1. add aria-sort with appropriate value to sorted th https://www.w3.org/WAI/PF/aria/states_and_properties#aria-sort
+    2. toggle icon (icon-caret-down, icon-caret-up)
+    3. toggle opacity (.5 for inactive, 1 for active)
+    4. only apply 1-3 to ONE th at a time
+-->
 <table class="table">
     <thead>
         <tr>
             <ng-container *ngFor="let column of columnValue; let i = index;">
-                <th>
-                    <div class="tbl-justify">
-                            <div>{{column.value}}</div>
-                            <div><span *ngIf="descending || i === getRowIndex() && true === boolSortTypeCheck"
-                                    (click)="ascSort(column.key)" class="descending">
-                                    <i [ngClass]="getClassName(i, 'desc')" aria-hidden="true"></i> </span>
-                                <span *ngIf="ascending || i === getRowIndex() && true === boolSortTypeCheck"
-                                    (click)="descSort(column.key)" class="ascending">
-                                    <i [ngClass]="getClassName(i, 'asc')" aria-hidden="true"></i> </span>
-                            </div>
-                    </div>
+                <th scope="col">
+                    <button class="th-sortable">
+                        {{column.value}}
+                    </button>
                 </th>
             </ng-container>
         </tr>
