@@ -8,13 +8,14 @@ import { TabledataService } from '../service/tabledata.service';
 })
 export class TableComponent implements OnInit, OnDestroy {
   allData: any;
-  descending = false;
-  ascending = true;
   columnValue: any;
   sortRowIndex: number;
   boolSortTypeCheck = true;
   loadService: any;
-
+  sortOrder: string;
+  iconbutton: boolean;
+  columnRowHeaderIndex: number;
+  setToggleClassSortOrder: string;
   constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
@@ -35,27 +36,13 @@ export class TableComponent implements OnInit, OnDestroy {
 
   ascSort(columnHeader: string) {
     this.sortByKeyAsc(this.allData, columnHeader);
-    this.descending = false;
-    this.ascending = true;
-    this.sortRowIndex = this.columnValue.findIndex(item => item.key === columnHeader);
   }
 
   descSort(columnHeader: string) {
     this.sortByKeyDesc(this.allData, columnHeader);
-    this.descending = true;
-    this.ascending = false;
-    this.sortRowIndex = this.columnValue.findIndex(item => item.key === columnHeader);
   }
 
   sortByKeyDesc(array, key) {
-    return array.sort(function (a, b) {
-      const x = a[key];
-      const y = b[key];
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-  }
-
-  sortByKeyAsc(array, key) {
     return array.sort(function (a, b) {
       const x = a[key];
       const y = b[key];
@@ -63,17 +50,32 @@ export class TableComponent implements OnInit, OnDestroy {
     });
   }
 
-  getRowIndex(): number {
-    return this.sortRowIndex;
+  sortByKeyAsc(array, key) {
+    return array.sort(function (a, b) {
+      const x = a[key];
+      const y = b[key];
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
   }
 
-  getClassName(index: number, sortType: string): string {
-    if (this.sortRowIndex === index && true === this.descending && 'desc' === sortType) {
-      this.boolSortTypeCheck = true;
-      return 'fa fa-caret-up';
+  applySort(columnHeader: string, columnIndex: number) {
+    this.columnRowHeaderIndex = columnIndex;
+    if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'desc') {
+      this.sortOrder = 'asc';
+      this.ascSort(columnHeader);
+      this.setToggleClassSortOrder = 'asscending';
     } else {
-      this.boolSortTypeCheck = false;
-      return 'fa fa-caret-down';
+      this.sortOrder = 'desc';
+      this.descSort(columnHeader);
+      this.setToggleClassSortOrder = 'descending';
+    }
+  }
+
+  getToggleClass(rowIndex: number): string {
+    if (this.columnRowHeaderIndex === rowIndex) {
+      return this.setToggleClassSortOrder;
+    } else {
+      return 'descending';
     }
   }
 

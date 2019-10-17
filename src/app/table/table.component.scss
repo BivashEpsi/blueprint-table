@@ -35,7 +35,7 @@
             
                 &::after
                 {
-                    content: $icon-caret-down; // TODO: toggle $icon-caret-down $icon-caret-up on click
+                    // content: $icon-caret-down; // TODO: toggle $icon-caret-down $icon-caret-up on click
                     font-family: $font-family-icon;
                     position: absolute;
                     right: 15px;
@@ -81,5 +81,23 @@
                 font-weight: $font-weight-semi-bold;
             }
         }
+    }
+
+    button.th-sortable.asscending {
+        &::after
+                {
+                    content: $icon-caret-up;                    
+                }
+    }
+
+    button.th-sortable.descending {
+         &::after
+                {
+                    content: $icon-caret-down;
+                }   
+    }
+
+    button.th-sortable.active {
+        opacity: 1;
     }
 }
