@@ -16,6 +16,7 @@ export class TableComponent implements OnInit, OnDestroy {
   iconbutton: boolean;
   columnRowHeaderIndex: number;
   setToggleClassSortOrder: string;
+  ariaSort: string = 'none';
   constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
@@ -64,10 +65,12 @@ export class TableComponent implements OnInit, OnDestroy {
       this.sortOrder = 'asc';
       this.ascSort(columnHeader);
       this.setToggleClassSortOrder = 'asscending';
+      this.ariaSort = 'asscending';
     } else {
       this.sortOrder = 'desc';
       this.descSort(columnHeader);
       this.setToggleClassSortOrder = 'descending';
+      this.ariaSort = 'descending';
     }
   }
 

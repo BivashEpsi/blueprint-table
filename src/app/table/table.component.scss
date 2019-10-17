@@ -32,7 +32,6 @@
                 font-weight: $font-weight-semi-bold;
                 text-align: left;
                 cursor: pointer;
-            
                 &::after
                 {
                     // content: $icon-caret-down; // TODO: toggle $icon-caret-down $icon-caret-up on click
@@ -86,7 +85,8 @@
     button.th-sortable.asscending {
         &::after
                 {
-                    content: $icon-caret-up;                    
+                    content: $icon-caret-up;  
+                    opacity: 1;                  
                 }
     }
 
@@ -94,10 +94,7 @@
          &::after
                 {
                     content: $icon-caret-down;
+                    opacity: 1;
                 }   
-    }
-
-    button.th-sortable.active {
-        opacity: 1;
     }
 }
