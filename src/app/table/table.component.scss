@@ -32,6 +32,7 @@
                 font-weight: $font-weight-semi-bold;
                 text-align: left;
                 cursor: pointer;
+
                 &::after
                 {
                     // content: $icon-caret-down; // TODO: toggle $icon-caret-down $icon-caret-up on click
@@ -82,19 +83,21 @@
         }
     }
 
-    button.th-sortable.asscending {
+    button.th-sortable.ascending
+    {
         &::after
-                {
-                    content: $icon-caret-up;  
-                    opacity: 1;                  
-                }
+        {
+            content: $icon-caret-up;  
+            opacity: 1;                  
+        }
     }
 
-    button.th-sortable.descending {
+    button.th-sortable.descending
+    {
          &::after
-                {
-                    content: $icon-caret-down;
-                    opacity: 1;
-                }   
+         {
+            content: $icon-caret-down;
+            opacity: 1;
+         }   
     }
 }

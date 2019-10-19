@@ -18,12 +18,14 @@
             </ng-container>
         </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let dataList of allData">
-            <td>{{dataList.date}}</td>
-            <td>{{dataList.amount}}</td>
-            <td>{{dataList.phone}}</td>
-            <td>{{dataList.description}}</td>
-        </tr>
+    <tbody *ngIf="allData.length > 0; else noColumnData">
+            <tr *ngFor="let dataList of allData">
+                <td>{{dataList.date}}</td>
+                <td>{{dataList.amount}}</td>
+                <td>{{dataList.phone}}</td>
+                <td>{{dataList.description}}</td>
+            </tr>
     </tbody>
+    <ng-template #noColumnData>
+    </ng-template>
 </table>
