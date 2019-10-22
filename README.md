@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## To run dummy json data service
 
-Run `json-server --watch db.json` in console
+Run `npm install -g json-server` and then `json-server --watch db.json`
