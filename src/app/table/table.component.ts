@@ -7,7 +7,7 @@ import { TabledataService } from '../service/tabledata.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnDestroy {
-  allData: any;
+  allData: [] = [];
   columnValue: any;
   sortRowIndex: number;
   boolSortTypeCheck = true;
@@ -16,7 +16,7 @@ export class TableComponent implements OnInit, OnDestroy {
   iconbutton: boolean;
   columnRowHeaderIndex: number;
   setToggleClassSortOrder: string;
-  ariaSort: string = 'none';
+  ariaSort = 'none';
   constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
@@ -64,12 +64,12 @@ export class TableComponent implements OnInit, OnDestroy {
     if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'desc') {
       this.sortOrder = 'asc';
       this.ascSort(columnHeader);
-      this.setToggleClassSortOrder = 'asscending';
-      this.ariaSort = 'asscending';
+      this.setToggleClassSortOrder = 'ascending active';
+      this.ariaSort = 'ascending';
     } else {
       this.sortOrder = 'desc';
       this.descSort(columnHeader);
-      this.setToggleClassSortOrder = 'descending';
+      this.setToggleClassSortOrder = 'descending active';
       this.ariaSort = 'descending';
     }
   }

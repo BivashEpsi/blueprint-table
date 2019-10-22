@@ -32,14 +32,38 @@
                 font-weight: $font-weight-semi-bold;
                 text-align: left;
                 cursor: pointer;
+
                 &::after
                 {
-                    // content: $icon-caret-down; // TODO: toggle $icon-caret-down $icon-caret-up on click
-                    font-family: $font-family-icon;
                     position: absolute;
                     right: 15px;
+                    font-family: $font-family-icon;
                     transform: translateY(2px);
-                    opacity: .5; // TODO: when actively sorted, change opacity to 1
+                    opacity: .5;
+                }
+
+                &.active
+                {
+                    &::after
+                    {
+                        opacity: 1;
+                    }
+                }
+
+                &.ascending
+                {
+                    &::after
+                    {
+                        content: $icon-caret-up;
+                    }
+                }
+
+                &.descending
+                {
+                    &::after
+                    {
+                        content: $icon-caret-down;
+                    }
                 }
             }
         }
@@ -80,21 +104,5 @@
                 font-weight: $font-weight-semi-bold;
             }
         }
-    }
-
-    button.th-sortable.asscending {
-        &::after
-                {
-                    content: $icon-caret-up;  
-                    opacity: 1;                  
-                }
-    }
-
-    button.th-sortable.descending {
-         &::after
-                {
-                    content: $icon-caret-down;
-                    opacity: 1;
-                }   
     }
 }

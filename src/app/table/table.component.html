@@ -18,7 +18,7 @@
             </ng-container>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="allData.length > 0; else noColumnData">
         <tr *ngFor="let dataList of allData">
             <td>{{dataList.date}}</td>
             <td>{{dataList.amount}}</td>
@@ -26,4 +26,13 @@
             <td>{{dataList.description}}</td>
         </tr>
     </tbody>
+    <ng-template #noColumnData>
+        <tbody>
+            <tr>
+                <td colspan="100%">
+                    No data available
+                </td>
+            </tr>
+        </tbody>
+    </ng-template>
 </table>
