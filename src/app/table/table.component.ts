@@ -7,7 +7,7 @@ import { TabledataService } from '../service/tabledata.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnDestroy {
-  allData: []= [];
+  allData: [] = [];
   columnValue: any;
   sortRowIndex: number;
   boolSortTypeCheck = true;
@@ -26,10 +26,10 @@ export class TableComponent implements OnInit, OnDestroy {
       { key: 'phone', value: 'Phone' },
       { key: 'description', value: 'Description' }
     ];
-    this.showData();    
+    this.showData();
   }
 
-   showData() {
+  showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
       this.allData = res.body;
     });
@@ -64,12 +64,12 @@ export class TableComponent implements OnInit, OnDestroy {
     if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'desc') {
       this.sortOrder = 'asc';
       this.ascSort(columnHeader);
-      this.setToggleClassSortOrder = 'ascending';
+      this.setToggleClassSortOrder = 'ascending active';
       this.ariaSort = 'ascending';
     } else {
       this.sortOrder = 'desc';
       this.descSort(columnHeader);
-      this.setToggleClassSortOrder = 'descending';
+      this.setToggleClassSortOrder = 'descending active';
       this.ariaSort = 'descending';
     }
   }
