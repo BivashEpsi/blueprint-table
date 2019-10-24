@@ -17,6 +17,8 @@ export class TableComponent implements OnInit, OnDestroy {
   columnRowHeaderIndex: number;
   setToggleClassSortOrder: string;
   ariaSort = 'none';
+  ariaSortCheck = false;
+  defultSortColumnName  = 'amount';
   constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class TableComponent implements OnInit, OnDestroy {
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
       this.allData = res.body;
+      this.defultSort();
     });
   }
 
@@ -74,12 +77,17 @@ export class TableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getToggleClass(rowIndex: number): string {
+  getToggleClassOrAriaSort(rowIndex: number, type: string = 'aria'): string {
     if (this.columnRowHeaderIndex === rowIndex) {
-      return this.setToggleClassSortOrder;
+      this.ariaSortCheck = true;
+      return ('aria' === type) ? this.ariaSort : this.setToggleClassSortOrder;
     } else {
-      return 'descending';
+      return ('aria' === type) ? null : 'descending';
     }
+  }
+
+  defultSort() {
+    this.ascSort(this.defultSortColumnName);
   }
 
   ngOnDestroy() {
