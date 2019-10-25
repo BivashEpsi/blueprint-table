@@ -9,14 +9,13 @@ import { TabledataService } from '../service/tabledata.service';
 export class TableComponent implements OnInit, OnDestroy {
   allData: [] = [];
   columnValue: any;
-  sortRowIndex: number;
-  boolSortTypeCheck = true;
   loadService: any;
   sortOrder: string;
-  iconbutton: boolean;
-  columnRowHeaderIndex: number;
+  columnHeaderIndex: number;
   setToggleClassSortOrder: string;
-  ariaSort = 'none';
+  ariaSort: string;
+  isSortActive = false;
+  defaultSortColumnName  = 'amount';
   constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
@@ -32,7 +31,12 @@ export class TableComponent implements OnInit, OnDestroy {
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
       this.allData = res.body;
+      this.defaultSort();
     });
+  }
+
+  defaultSort() {
+    this.ascSort(this.defaultSortColumnName);
   }
 
   ascSort(columnHeader: string) {
@@ -60,7 +64,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   applySort(columnHeader: string, columnIndex: number) {
-    this.columnRowHeaderIndex = columnIndex;
+    this.columnHeaderIndex = columnIndex;
     if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'desc') {
       this.sortOrder = 'asc';
       this.ascSort(columnHeader);
@@ -74,11 +78,21 @@ export class TableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getToggleClass(rowIndex: number): string {
-    if (this.columnRowHeaderIndex === rowIndex) {
+  getSortClasses(rowIndex: number): string {
+    if (this.columnHeaderIndex === rowIndex) {
+      this.isSortActive = true;
       return this.setToggleClassSortOrder;
     } else {
-      return 'descending';
+      return 'descending  ';
+    }
+  }
+
+  getAriaSortOrder(rowIndex: number): string {
+    if (this.columnHeaderIndex === rowIndex) {
+      this.isSortActive = true;
+      return this.ariaSort;
+    } else {
+      return null;
     }
   }
 
