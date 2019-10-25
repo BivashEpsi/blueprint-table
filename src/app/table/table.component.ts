@@ -6,16 +6,16 @@ import { TabledataService } from '../service/tabledata.service';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
+
 export class TableComponent implements OnInit, OnDestroy {
   allData: [] = [];
   columnValue: any;
   loadService: any;
+  defaultSortColName  = 'amount';
+  colIndex: number;
   sortOrder: string;
-  columnHeaderIndex: number;
-  setToggleClassSortOrder: string;
-  ariaSort: string;
   isSortActive = false;
-  defaultSortColumnName  = 'amount';
+
   constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
@@ -36,23 +36,15 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   defaultSort() {
-    this.ascSort(this.defaultSortColumnName);
+    this.ascSort(this.defaultSortColName);
   }
 
-  ascSort(columnHeader: string) {
-    this.sortByKeyAsc(this.allData, columnHeader);
+  ascSort(colHeader: string) {
+    this.sortByKeyAsc(this.allData, colHeader);
   }
 
-  descSort(columnHeader: string) {
-    this.sortByKeyDesc(this.allData, columnHeader);
-  }
-
-  sortByKeyDesc(array, key) {
-    return array.sort(function (a, b) {
-      const x = a[key];
-      const y = b[key];
-      return x > y ? -1 : x > y ? 1 : 0;
-    });
+  descSort(colHeader: string) {
+    this.sortByKeyDesc(this.allData, colHeader);
   }
 
   sortByKeyAsc(array, key) {
@@ -63,36 +55,33 @@ export class TableComponent implements OnInit, OnDestroy {
     });
   }
 
-  applySort(columnHeader: string, columnIndex: number) {
-    this.columnHeaderIndex = columnIndex;
-    if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'desc') {
-      this.sortOrder = 'asc';
-      this.ascSort(columnHeader);
-      this.setToggleClassSortOrder = 'ascending active';
-      this.ariaSort = 'ascending';
-    } else {
-      this.sortOrder = 'desc';
-      this.descSort(columnHeader);
-      this.setToggleClassSortOrder = 'descending active';
-      this.ariaSort = 'descending';
-    }
-  }
-
-  getSortClasses(rowIndex: number): string {
-    if (this.columnHeaderIndex === rowIndex) {
-      this.isSortActive = true;
-      return this.setToggleClassSortOrder;
-    } else {
-      return 'descending  ';
-    }
+  sortByKeyDesc(array, key) {
+    return array.sort(function (a, b) {
+      const x = a[key];
+      const y = b[key];
+      return x > y ? -1 : x > y ? 1 : 0;
+    });
   }
 
   getAriaSortOrder(rowIndex: number): string {
-    if (this.columnHeaderIndex === rowIndex) {
+    if (this.colIndex === rowIndex) {
       this.isSortActive = true;
-      return this.ariaSort;
+      return this.sortOrder;
     } else {
       return null;
+    }
+  }
+
+  applySort(colHeader: string, colIndex: number) {
+    this.colIndex = colIndex;
+    if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'descending') {
+      this.ascSort(colHeader);
+      this.isSortActive = true;
+      this.sortOrder = 'ascending';
+    } else {
+      this.descSort(colHeader);
+      this.isSortActive = true;
+      this.sortOrder = 'descending';
     }
   }
 
