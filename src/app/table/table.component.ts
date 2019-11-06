@@ -11,10 +11,10 @@ export class TableComponent implements OnInit, OnDestroy {
   allData: [] = [];
   columnValue: any;
   loadService: any;
-  defaultSortColName  = 'amount';
+  defaultSortColName = 'amount';
   colIndex: number;
-  sortOrder: string;
-  isSortActive = false;
+  sortOrder = 'ascending';
+  isSortActive = true;
 
   constructor(private tableDataService: TabledataService) { }
 
@@ -64,6 +64,14 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   getAriaSortOrder(rowIndex: number): string {
+    const columnIndex = this.columnValue.findIndex((item: { key: string; }, index: any) => {
+      if (item.key === this.defaultSortColName) {
+        return index;
+      }
+    });
+    if (columnIndex === rowIndex) {
+      return 'ascending';
+    }
     if (this.colIndex === rowIndex) {
       this.isSortActive = true;
       return this.sortOrder;
@@ -74,14 +82,17 @@ export class TableComponent implements OnInit, OnDestroy {
 
   applySort(colHeader: string, colIndex: number) {
     this.colIndex = colIndex;
-    if (this.sortOrder === undefined || this.sortOrder === '' || this.sortOrder === 'descending') {
+    if (this.defaultSortColName !== colHeader && typeof (this.sortOrder) !== 'undefined' ||
+      this.sortOrder === '' || this.sortOrder === 'descending') {
       this.ascSort(colHeader);
       this.isSortActive = true;
       this.sortOrder = 'ascending';
+      this.defaultSortColName = colHeader;
     } else {
       this.descSort(colHeader);
       this.isSortActive = true;
       this.sortOrder = 'descending';
+      this.defaultSortColName = '';
     }
   }
 
