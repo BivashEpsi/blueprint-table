@@ -11,28 +11,28 @@
             </ng-container>
         </tr>
     </thead>
-    <tbody *ngIf="allData.length > 0; else noColumnData">
-        <tr *ngFor="let dataList of allData">
-            <td>{{dataList.date}}</td>
-            <td>{{dataList.amount}}</td>
-            <td>{{dataList.phone}}</td>
-            <td>{{dataList.description}}</td>
-        </tr>
-    </tbody>
+        <tbody *ngIf="loadingTableData; else loaded">
+            <tr class="table-empty">
+                <td colspan="100%">
+                    <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i>Loading data
+                </td>
+            </tr>
+        </tbody>
+    <ng-template #loaded>
+        <tbody *ngIf="allData.length > 0; else noColumnData">
+            <tr *ngFor="let dataList of allData">
+                <td>{{dataList.date}}</td>
+                <td>{{dataList.amount}}</td>
+                <td>{{dataList.phone}}</td>
+                <td>{{dataList.description}}</td>
+            </tr>
+        </tbody>
+    </ng-template>
     <ng-template #noColumnData>
         <tbody>
             <tr class="table-empty">
                 <td colspan="100%">
                     No data available
-                </td>
-            </tr>
-        </tbody>
-    </ng-template>
-    <ng-template #loadingTableData>
-        <tbody>
-            <tr class="table-empty">
-                <td colspan="100%">
-                    <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i>Loading data
                 </td>
             </tr>
         </tbody>

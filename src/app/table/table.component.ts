@@ -15,6 +15,7 @@ export class TableComponent implements OnInit, OnDestroy {
   colIndex: number;
   sortOrder = 'ascending';
   isSortActive = true;
+  loadingTableData = true;
 
   constructor(private tableDataService: TabledataService) { }
 
@@ -32,6 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
       this.allData = res.body;
       this.defaultSort();
+      this.loadingTableData = false;
     });
   }
 
