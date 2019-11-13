@@ -1,14 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TabledataService } from '../service/tabledata.service';
 
 @Component({
   selector: 'app-table',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
 
 export class TableComponent implements OnInit, OnDestroy {
-  allData: [] = [];
+  allData = [];
+  allDataClone = [];
   columnValue: any;
   loadService: any;
   defaultSortColName = 'amount';
@@ -16,8 +18,12 @@ export class TableComponent implements OnInit, OnDestroy {
   sortOrder = 'ascending';
   isSortActive = true;
   loadingTableData = true;
+  totalPageCount: number;
+  pageRestrict: number;
+  pageStartPoint: number;
+  defultRowValue = 2;
 
-  constructor(private tableDataService: TabledataService) { }
+  constructor(private tableDataService: TabledataService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.columnValue = [
@@ -32,6 +38,10 @@ export class TableComponent implements OnInit, OnDestroy {
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
       this.allData = res.body;
+      this.allDataClone = res.body;
+      this.totalPageCount = res.body.length;
+      this.getPageCount({ startPoint: 0, pagelimit: this.defultRowValue });
+      this.cd.markForCheck();
       this.defaultSort();
       this.loadingTableData = false;
     });
@@ -95,6 +105,19 @@ export class TableComponent implements OnInit, OnDestroy {
       this.isSortActive = true;
       this.sortOrder = 'descending';
       this.defaultSortColName = '';
+    }
+  }
+
+  /**
+   * This function emit number of page limit and starting point of records
+   * @param : event it is a object
+   */
+  getPageCount(event) {
+    if (this.allData.length > 0) {
+      this.pageRestrict = event.pagelimit;
+      this.pageStartPoint = event.startPoint;
+      this.allData = this.allDataClone.slice(this.pageStartPoint, this.pageRestrict);
+      this.cd.markForCheck();
     }
   }
 

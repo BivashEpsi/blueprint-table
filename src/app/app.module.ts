@@ -5,15 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TabledataService } from './service/tabledata.service';
 import { TableComponent } from './table/table.component';
+import { PaginationComponent } from './table/table-footer/pagination/pagination.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent
+    TableComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [HttpClientModule, TabledataService],
   bootstrap: [AppComponent]
