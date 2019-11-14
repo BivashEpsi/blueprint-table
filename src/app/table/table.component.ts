@@ -21,7 +21,7 @@ export class TableComponent implements OnInit, OnDestroy {
   totalPageCount: number;
   pageRestrict: number;
   pageStartPoint: number;
-  defultRowValue = 2;
+  defultRowValue = 10;
 
   constructor(private tableDataService: TabledataService, private cd: ChangeDetectorRef) { }
 
@@ -112,7 +112,7 @@ export class TableComponent implements OnInit, OnDestroy {
    * This function emit number of page limit and starting point of records
    * @param : event it is a object
    */
-  getPageCount(event) {
+  getPageCount(event: { startPoint: any; pagelimit: any; }) {
     if (this.allData.length > 0) {
       this.pageRestrict = event.pagelimit;
       this.pageStartPoint = event.startPoint;

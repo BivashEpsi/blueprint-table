@@ -1,27 +1,8 @@
 <div class="table-footer">
     <div class="tbl-divider">
-        <div class="toggle-icon-parent">
-            <a href="#"><img class="toggle-icon" src="assets/img/table-footer/shape1.png"></a>
-            <a href="#"><img class="toggle-icon" src="assets/img/table-footer/shape2.png"></a>
-            <a href="#"><img class="toggle-icon" src="assets/img/table-footer/shape3.png"></a>
-        </div>
-        <span class="tbl-footer-label-left">Column Selector :</span>
-        <select>
-            <option value="Showing 7 out of 10">Showing 7 out of 10</option>
-            <option value="Showing 7 out of 10">Showing 7 out of 10</option>
-            <option value="Showing 7 out of 10">Showing 7 out of 10</option>
-            <option value="Showing 7 out of 10">Showing 7 out of 10</option>
-        </select>
-        <span class="tbl-footer-label-left">Display density:</span>
-        <select>
-            <option value="Comfy">Comfy</option>
-            <option value="Compact">Compact</option>
-        </select>
-    </div>
-    <div class="tbl-divider">
         <span class="tbl-footer-label-right">{{ totalCount }} results</span>
-        <select (change)="generatePages()" [(ngModel)]="defultRowValue">
-            <option *ngFor="let rowD of rowData" [ngValue]="rowD.rowValue">{{rowD.rowValue}}</option>
+        <select class="pageSelectDropdown" (change)="generatePages()" [(ngModel)]="defultRowValue">
+            <option *ngFor="let rowD of rowData" [ngValue]="rowD.rowValue">{{rowD.rowValue}} rows</option>
         </select>
         <div class="pagination">
             <button [disabled]="currentPage === 1" class="remove-btn-att" (click)="clickPageNumbers(1)"><i

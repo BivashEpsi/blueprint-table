@@ -3,7 +3,7 @@
 .table-footer 
 {
 	display: flex;
-    justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 	padding: 15px 20px 15px;
 	position: sticky;
@@ -24,6 +24,12 @@
 			padding: 8px 10px;
 		}
 		
+		.pageSelectDropdown{
+			color: $storm;
+			font-size: 12px;
+			font-family: OpenSans;
+		}
+
 		.toggle-icon-parent
 		{
 			display: inline-block;

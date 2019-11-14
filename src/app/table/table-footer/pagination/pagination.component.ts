@@ -10,17 +10,19 @@ export class PaginationComponent implements OnInit {
   @Input() totalCount: number;
   @Output() itemsToShow = new EventEmitter();
   @Input() defultRowValue: number;
+  @Input() columnHeadersData: number;
   arrOfPages = [];
   currentPage = 1;
   nummberOfPages: number;
   startPoint: number;
   populateData = [];
   rowData = [
-    { id: 1, rowValue: 1 },
-    { id: 2, rowValue: 2 },
-    { id: 3, rowValue: 3 },
-    { id: 4, rowValue: 4 }
+    { id: 1, rowValue: 10 },
+    { id: 2, rowValue: 25 },
+    { id: 3, rowValue: 50 },
+    { id: 4, rowValue: 100 }
   ];
+  dataVies: number;
 
   constructor() { }
 
@@ -36,11 +38,19 @@ export class PaginationComponent implements OnInit {
   generatePages() {
     // Total count / dropdown value.
     this.arrOfPages = [];
+    let lastpageFlag = false;
+    if (this.currentPage === this.nummberOfPages) {
+      lastpageFlag = true;
+    }
     this.nummberOfPages = Math.ceil(this.totalCount / this.defultRowValue);
     for (let i = 1; i <= this.nummberOfPages; i++) {
       this.arrOfPages.push(i);
     }
-    this.emitStartAndLimit();
+    if (lastpageFlag && this.currentPage > this.nummberOfPages) {
+      this.clickPageNumbers(this.nummberOfPages);
+    } else {
+      this.emitStartAndLimit();
+    }
   }
 
   /**

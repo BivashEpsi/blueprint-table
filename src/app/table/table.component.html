@@ -38,5 +38,5 @@
         </tbody>
     </ng-template>
 </table>
-<app-pagination *ngIf="allData.length > 0" (itemsToShow)="getPageCount($event)" [totalCount]="totalPageCount"
+<app-pagination *ngIf="allData.length > 0"[columnHeadersData]="columnValue" (itemsToShow)="getPageCount($event)" [totalCount]="totalPageCount"
     [defultRowValue]="defultRowValue"></app-pagination>
