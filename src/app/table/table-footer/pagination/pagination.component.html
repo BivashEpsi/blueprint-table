@@ -1,21 +1,20 @@
 <div class="table-footer">
     <div class="tbl-divider">
         <span class="tbl-footer-label-right">{{ totalCount }} results</span>
-        <select class="pageSelectDropdown" (change)="generatePages()" [(ngModel)]="defultRowValue">
+        <select class="page-select-dropdown" (change)="setRowLimit()" [(ngModel)]="defaultRowValue">
             <option *ngFor="let rowD of rowData" [ngValue]="rowD.rowValue">{{rowD.rowValue}} rows</option>
         </select>
         <div class="pagination">
-            <button [disabled]="currentPage === 1" class="remove-btn-att" (click)="clickPageNumbers(1)"><i
-                    class="fa fa-angle-double-left" aria-hidden="true"></i></button>
-            <button [disabled]="currentPage === 1" class="remove-btn-att" (click)="clickPageNumbers(currentPage-1)"><i
-                    class="fa fa-angle-left" aria-hidden="true"></i></button>
-            <a href="javascript:void(0)" *ngFor="let page of arrOfPages" [class.active]="page === currentPage"
-                (click)="clickPageNumbers(page)">{{page}}</a>
-            <button [disabled]="currentPage === nummberOfPages" class="remove-btn-att"
-                (click)="clickPageNumbers(currentPage+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
-            <button [disabled]="currentPage === nummberOfPages" class="remove-btn-att"
-                (click)="clickPageNumbers(nummberOfPages)"><i class="fa fa-angle-double-right"
-                    aria-hidden="true"></i></button>
+            <button [disabled]="currentPage === 1" aria-label="First page" class="remove-btn-att"
+                (click)="changePage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
+            <button [disabled]="currentPage === 1" aria-label="Previous page" class="remove-btn-att"
+                (click)="changePage(currentPage-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+            <li *ngFor="let page of arrOfPages" [class.active]="page === currentPage" (click)="changePage(page)">
+                {{page}}</li>
+            <button [disabled]="currentPage === numberOfPages" aria-label="Next page" class="remove-btn-att"
+                (click)="changePage(currentPage+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+            <button [disabled]="currentPage === numberOfPages" aria-label="Last page" class="remove-btn-att"
+                (click)="changePage(numberOfPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
         </div>
     </div>
 </div>

@@ -9,8 +9,8 @@ import { TabledataService } from '../service/tabledata.service';
 })
 
 export class TableComponent implements OnInit, OnDestroy {
+  tableData = [];
   allData = [];
-  allDataClone = [];
   columnValue: any;
   loadService: any;
   defaultSortColName = 'amount';
@@ -21,7 +21,7 @@ export class TableComponent implements OnInit, OnDestroy {
   totalPageCount: number;
   pageRestrict: number;
   pageStartPoint: number;
-  defultRowValue = 10;
+  defaultRowValue = 10;
 
   constructor(private tableDataService: TabledataService, private cd: ChangeDetectorRef) { }
 
@@ -37,10 +37,10 @@ export class TableComponent implements OnInit, OnDestroy {
 
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
+      this.tableData = res.body;
       this.allData = res.body;
-      this.allDataClone = res.body;
       this.totalPageCount = res.body.length;
-      this.getPageCount({ startPoint: 0, pagelimit: this.defultRowValue });
+      this.getPageCount({ startPoint: 0, pagelimit: this.defaultRowValue });
       this.cd.markForCheck();
       this.defaultSort();
       this.loadingTableData = false;
@@ -52,11 +52,11 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ascSort(colHeader: string) {
-    this.sortByKeyAsc(this.allData, colHeader);
+    this.sortByKeyAsc(this.tableData, colHeader);
   }
 
   descSort(colHeader: string) {
-    this.sortByKeyDesc(this.allData, colHeader);
+    this.sortByKeyDesc(this.tableData, colHeader);
   }
 
   sortByKeyAsc(array, key) {
@@ -113,10 +113,10 @@ export class TableComponent implements OnInit, OnDestroy {
    * @param : event it is a object
    */
   getPageCount(event: { startPoint: any; pagelimit: any; }) {
-    if (this.allData.length > 0) {
+    if (this.tableData.length > 0) {
       this.pageRestrict = event.pagelimit;
       this.pageStartPoint = event.startPoint;
-      this.allData = this.allDataClone.slice(this.pageStartPoint, this.pageRestrict);
+      this.tableData = this.allData.slice(this.pageStartPoint, this.pageRestrict);
       this.cd.markForCheck();
     }
   }

@@ -24,10 +24,10 @@
 			padding: 8px 10px;
 		}
 		
-		.pageSelectDropdown{
+		.page-select-dropdown
+		{
 			color: $storm;
 			font-size: 12px;
-			font-family: OpenSans;
 		}
 
 		.toggle-icon-parent
@@ -36,7 +36,7 @@
 
 			a 
 			{
-				color: $black;
+				color: $storm;
 				text-decoration: none;
 			}
 
@@ -50,27 +50,28 @@
 		.pagination 
 		{
 			display: inline-block;
+			cursor: pointer;
 
-			a 
+			li 
 			{
+				display: inline;
 				color: $ultramarine;
 				padding: 8px 8px;
-				text-decoration: none;
 
 				&:hover 
 				{
 					&:not(.active) 
 					{
 						background-color: $ultramarine;
-						color: $white;
+						color: $coconut;
 					}
 				}
 			}
 
-			a.active 
+			li.active 
 			{
 				background-color: $ultramarine;
-				color: $white;
+				color: $coconut;
 			}
 
 			button.remove-btn-att 
@@ -90,16 +91,3 @@
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

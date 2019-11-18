@@ -8,46 +8,44 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 export class PaginationComponent implements OnInit {
   @Input() totalCount: number;
-  @Output() itemsToShow = new EventEmitter();
-  @Input() defultRowValue: number;
+  @Output() itemsStartAndLimit = new EventEmitter();
+  @Input() defaultRowValue: number;
   @Input() columnHeadersData: number;
   arrOfPages = [];
   currentPage = 1;
-  nummberOfPages: number;
+  numberOfPages: number;
   startPoint: number;
-  populateData = [];
   rowData = [
     { id: 1, rowValue: 10 },
     { id: 2, rowValue: 25 },
     { id: 3, rowValue: 50 },
     { id: 4, rowValue: 100 }
   ];
-  dataVies: number;
 
   constructor() { }
 
   ngOnInit() {
-    this.generatePages();
-    this.clickPageNumbers(1);
-    this.defultRowValue = this.defultRowValue;
+    this.setRowLimit();
+    this.changePage(1);
+    this.defaultRowValue = this.defaultRowValue;
   }
 
   /**
    * Below function is used to generate pages.
    */
-  generatePages() {
+  setRowLimit() {
     // Total count / dropdown value.
     this.arrOfPages = [];
-    let lastpageFlag = false;
-    if (this.currentPage === this.nummberOfPages) {
-      lastpageFlag = true;
+    let lastPageFlag = false;
+    if (this.currentPage === this.numberOfPages) {
+      lastPageFlag = true;
     }
-    this.nummberOfPages = Math.ceil(this.totalCount / this.defultRowValue);
-    for (let i = 1; i <= this.nummberOfPages; i++) {
+    this.numberOfPages = Math.ceil(this.totalCount / this.defaultRowValue);
+    for (let i = 1; i <= this.numberOfPages; i++) {
       this.arrOfPages.push(i);
     }
-    if (lastpageFlag && this.currentPage > this.nummberOfPages) {
-      this.clickPageNumbers(this.nummberOfPages);
+    if (lastPageFlag && this.currentPage > this.numberOfPages) {
+      this.changePage(this.numberOfPages);
     } else {
       this.emitStartAndLimit();
     }
@@ -58,9 +56,9 @@ export class PaginationComponent implements OnInit {
    * @param pageNumber select page numbers
    */
 
-  clickPageNumbers(pageNumber: number) {
+  changePage(pageNumber: number) {
     this.currentPage = pageNumber;
-    this.getData(pageNumber, this.defultRowValue);
+    this.getData(pageNumber, this.defaultRowValue);
   }
 
   /**
@@ -79,7 +77,7 @@ export class PaginationComponent implements OnInit {
    */
   emitStartAndLimit() {
     if (this.totalCount > this.startPoint) {
-      this.itemsToShow.emit({ startPoint: this.startPoint, pagelimit: this.startPoint + this.defultRowValue });
+      this.itemsStartAndLimit.emit({ startPoint: this.startPoint, pagelimit: this.startPoint + this.defaultRowValue });
     }
   }
 
