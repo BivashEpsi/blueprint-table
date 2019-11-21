@@ -7,11 +7,13 @@ import { TabledataService } from './service/tabledata.service';
 import { TableComponent } from './table/table.component';
 import { PaginationComponent } from './table/table-footer/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { TableFooterComponent } from './table/table-footer/table-footer.component';
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    PaginationComponent
+    PaginationComponent,
+    TableFooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 {
-  "customerData": [
-      { 
+  "customerData": { "data":
+            [ { 
         "id": 1,
         "date": "2019-04-30T02:15:12.356Z",
         "amount": 100,
@@ -716,6 +716,15 @@
         "amount": 456564,
         "phone": "202-555-0865",
         "description": "h quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+      },{ 
+        "id": 102,
+        "date": "2019-07-30T02:15:12.356Z",
+        "amount": 456564777,
+        "phone": "202-555-0999",
+        "description": "h quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
       }
-    ]
+    ],
+            "totalCount": 101          
   }
+  
+}

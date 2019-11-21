@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { TabledataService } from '../service/tabledata.service';
 
 @Component({
   selector: 'app-table',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
@@ -18,10 +17,10 @@ export class TableComponent implements OnInit, OnDestroy {
   sortOrder = 'ascending';
   isSortActive = true;
   loadingTableData = true;
-  totalPageCount: number;
+  totalRecords: number;
   pageRestrict: number;
   pageStartPoint: number;
-  defaultRowValue = 10;
+  defaultSelectValue = 10;
 
   constructor(private tableDataService: TabledataService, private cd: ChangeDetectorRef) { }
 
@@ -37,11 +36,10 @@ export class TableComponent implements OnInit, OnDestroy {
 
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
-      this.tableData = res.body;
-      this.allData = res.body;
-      this.totalPageCount = res.body.length;
-      this.getPageCount({ startPoint: 0, pagelimit: this.defaultRowValue });
-      this.cd.markForCheck();
+      this.tableData = res.body.data;
+      this.allData = res.body.data;
+      this.totalRecords = res.body.totalCount;
+      this.getPageCount({ startPoint: 0, pageLimit: this.defaultSelectValue });
       this.defaultSort();
       this.loadingTableData = false;
     });
@@ -112,12 +110,12 @@ export class TableComponent implements OnInit, OnDestroy {
    * This function emit number of page limit and starting point of records
    * @param : event it is a object
    */
-  getPageCount(event: { startPoint: any; pagelimit: any; }) {
+
+  getPageCount(event: { startPoint: any; pageLimit: any; }) {
     if (this.tableData.length > 0) {
-      this.pageRestrict = event.pagelimit;
+      this.pageRestrict = event.pageLimit;
       this.pageStartPoint = event.startPoint;
       this.tableData = this.allData.slice(this.pageStartPoint, this.pageRestrict);
-      this.cd.markForCheck();
     }
   }
 
