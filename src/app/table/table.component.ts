@@ -1,20 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TabledataService } from '../service/tabledata.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { TabledataService } from "../service/tabledata.service";
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  selector: "app-table",
+  templateUrl: "./table.component.html",
+  styleUrls: ["./table.component.scss"]
 })
-
 export class TableComponent implements OnInit, OnDestroy {
   tableData = [];
   allData = [];
   columnValue: any;
   loadService: any;
-  defaultSortColName = 'amount';
+  defaultSortColName = "amount";
   colIndex: number;
-  sortOrder = 'ascending';
+  sortOrder = "ascending";
   isSortActive = true;
   loadingTableData = true;
   totalRecords: number;
@@ -24,20 +23,20 @@ export class TableComponent implements OnInit, OnDestroy {
   paginationListToShow = 3;
   showCurrentPage = 1;
 
-  constructor(private tableDataService: TabledataService) { }
+  constructor(private tableDataService: TabledataService) {}
 
   ngOnInit() {
     this.columnValue = [
-      { key: 'date', value: 'Date' },
-      { key: 'amount', value: 'Amount' },
-      { key: 'phone', value: 'Phone' },
-      { key: 'description', value: 'Description' }
+      { key: "date", value: "Date" },
+      { key: "amount", value: "Amount" },
+      { key: "phone", value: "Phone" },
+      { key: "description", value: "Description" }
     ];
     this.showData();
   }
 
   showData() {
-    this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
+    this.loadService = this.tableDataService.get_cuData().subscribe(res => {
       this.tableData = res.body.data;
       this.allData = res.body.data;
       this.totalRecords = res.body.totalCount;
@@ -60,7 +59,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   sortByKeyAsc(array, key) {
-    return array.sort(function (a, b) {
+    return array.sort(function(a, b) {
       const x = a[key];
       const y = b[key];
       return x < y ? -1 : 1;
@@ -68,7 +67,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   sortByKeyDesc(array, key) {
-    return array.sort(function (a, b) {
+    return array.sort(function(a, b) {
       const x = a[key];
       const y = b[key];
       return x > y ? -1 : 1;
@@ -76,13 +75,15 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   getAriaSortOrder(rowIndex: number): string {
-    const columnIndex = this.columnValue.findIndex((item: { key: string; }, index: any) => {
-      if (item.key === this.defaultSortColName) {
-        return index;
+    const columnIndex = this.columnValue.findIndex(
+      (item: { key: string }, index: any) => {
+        if (item.key === this.defaultSortColName) {
+          return index;
+        }
       }
-    });
+    );
     if (columnIndex === rowIndex) {
-      return 'ascending';
+      return "ascending";
     }
     if (this.colIndex === rowIndex) {
       this.isSortActive = true;
@@ -94,17 +95,21 @@ export class TableComponent implements OnInit, OnDestroy {
 
   applySort(colHeader: string, colIndex: number) {
     this.colIndex = colIndex;
-    if (this.defaultSortColName !== colHeader && typeof (this.sortOrder) !== 'undefined' ||
-      this.sortOrder === '' || this.sortOrder === 'descending') {
+    if (
+      (this.defaultSortColName !== colHeader &&
+        typeof this.sortOrder !== "undefined") ||
+      this.sortOrder === "" ||
+      this.sortOrder === "descending"
+    ) {
       this.ascSort(colHeader);
       this.isSortActive = true;
-      this.sortOrder = 'ascending';
+      this.sortOrder = "ascending";
       this.defaultSortColName = colHeader;
     } else {
       this.descSort(colHeader);
       this.isSortActive = true;
-      this.sortOrder = 'descending';
-      this.defaultSortColName = '';
+      this.sortOrder = "descending";
+      this.defaultSortColName = "";
     }
   }
 
@@ -113,12 +118,30 @@ export class TableComponent implements OnInit, OnDestroy {
    * @param : event it is a object
    */
 
-  getPageCount(event: { startPoint: any; pageLimit: any; }) {
+  getPageCount(event: { startPoint: any; pageLimit: any }) {
     if (this.tableData.length > 0) {
       this.setPageLimit = event.pageLimit;
       this.setPageStartPoint = event.startPoint;
-      this.tableData = this.allData.slice(this.setPageStartPoint, this.setPageLimit);
+      this.tableData = this.allData.slice(
+        this.setPageStartPoint,
+        this.setPageLimit
+      );
     }
+  }
+
+  search(query) {
+    this.tableData = this.allData.filter(d => {
+      for (let col of this.columnValue) {
+        if (d[col.key] && String(d[col.key]).includes(query)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  clearSearch() {
+    this.tableData = [...this.allData];
   }
 
   ngOnDestroy() {
