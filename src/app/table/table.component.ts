@@ -9,6 +9,7 @@ import { TabledataService } from '../service/tabledata.service';
 
 export class TableComponent implements OnInit, OnDestroy {
   allData: [] = [];
+  filteredData;
   columnValue: any;
   loadService: any;
   defaultSortColName = 'amount';
@@ -32,6 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
       this.allData = res.body;
+      this.filteredData = res.body;
       this.defaultSort();
       this.loadingTableData = false;
     });
@@ -42,11 +44,11 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ascSort(colHeader: string) {
-    this.sortByKeyAsc(this.allData, colHeader);
+    this.sortByKeyAsc(this.filteredData, colHeader);
   }
 
   descSort(colHeader: string) {
-    this.sortByKeyDesc(this.allData, colHeader);
+    this.sortByKeyDesc(this.filteredData, colHeader);
   }
 
   sortByKeyAsc(array, key) {
@@ -96,6 +98,22 @@ export class TableComponent implements OnInit, OnDestroy {
       this.sortOrder = 'descending';
       this.defaultSortColName = '';
     }
+  }
+
+  search(query) {
+    this.filteredData = this.allData.filter(d => {
+      for (let col of this.columnValue) {
+        if (d[col.key] && String(d[col.key]).includes(query)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  clearSearch() {
+    this.filteredData = [...this.allData];
+
   }
 
   ngOnDestroy() {
