@@ -1,6 +1,6 @@
 @import "../../../../styles/_global-variables";
 
-.table-footer 
+.table-pagination 
 {
 	display: flex;
 	justify-content: flex-end;
@@ -11,12 +11,6 @@
 	.tbl-divider
 	{
 		position: relative;
-
-		.tbl-footer-label-left
-		{
-			color: $midnight;
-			padding: 8px 20px;
-		}
 
 		.tbl-footer-label-right
 		{
@@ -30,23 +24,6 @@
 			font-size: 12px;
 		}
 
-		.toggle-icon-parent
-		{
-			display: inline-block;
-
-			a 
-			{
-				color: $storm;
-				text-decoration: none;
-			}
-
-			.toggle-icon
-			{
-				border: 1px solid $storm;
-				padding: 4px 4px;	
-			}
-		}
-
 		.pagination 
 		{
 			display: inline-block;
@@ -55,23 +32,23 @@
 			li 
 			{
 				display: inline;
-				color: $ultramarine;
+				color: $midnight;
 				padding: 8px 8px;
 
 				&:hover 
 				{
 					&:not(.active) 
 					{
-						background-color: $ultramarine;
-						color: $coconut;
+						background-color: $haze;
+						color: $midnight;
 					}
 				}
 			}
 
 			li.active 
 			{
-				background-color: $ultramarine;
-				color: $coconut;
+				background-color: $haze;
+				color: $midnight;
 			}
 
 			button.remove-btn-att 

@@ -39,5 +39,5 @@
     </ng-template>
 
 </table>
-<app-table-footer *ngIf="totalRecords" [totalRecords]="totalRecords" [defaultSelectValue]="defaultSelectValue"
-    (getPageCount)="getPageCount($event)"></app-table-footer>
+<app-table-footer *ngIf="totalRecords" [tableDataStartIndex]="pageStartPoint" [totalRecords]="totalRecords"
+    [defaultNumberOfRows]="defaultNumberOfRows" (getPageCount)="getPageCount($event)"></app-table-footer>

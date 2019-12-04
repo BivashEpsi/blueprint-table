@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./pagination.component.scss']
 })
 
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
 
   @Input()
   totalRecords: number;
@@ -15,17 +15,18 @@ export class PaginationComponent implements OnInit {
   itemsStartAndLimit = new EventEmitter();
 
   @Input()
-  defaultSelectValue: number;
+  defaultNumberOfRows: number;
 
   @Input()
-  columnHeadersData: number;
+  tableDataStartIndex: number;
 
   pages = [];
-  goingReverse = false;
   currentPage = 1;
-  numberOfPages: number;
   startPoint: number;
-  noOfPagesToShow = 3;
+  numberOfPagesToShow = 3;
+  pageDataStartIndex: number;
+  isItPageSelectDropdown = false;
+
   rowData = [
     { id: 1, rowValue: 10 },
     { id: 2, rowValue: 25 },
@@ -36,104 +37,119 @@ export class PaginationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.setRowLimit();
+    this.changePage(this.currentPage);
+  }
+
+  ngOnChanges() {
+    this.setTableDataStartPoint(this.tableDataStartIndex);
+  }
+
+  private setDisabledLink(selectedPage: number): boolean {
+    if (this.currentPage === selectedPage) {
+      return true;
+    }
+    return false;
   }
 
   /**
    * Below function is used to generate pages.
    */
-  setRowLimit() {
-    this.goingReverse = false;
-    this.numberOfPages = Math.ceil(this.totalRecords / this.defaultSelectValue);
-    this.generatePaginationNumber();
 
-    if (this.currentPage >= this.numberOfPages) {
-      this.currentPage = this.numberOfPages;
-      this.changePage(this.numberOfPages);
-    } else {
+  setRowLimit() {
+    this.isItPageSelectDropdown = true;
+    this.currentPage = 1;
+    this.numberOfPagesToShow = 3;
+    this.changePage(this.currentPage);
+    this.setTableDataStartPoint(this.tableDataStartIndex);
+    this.numberOfPagesToShow = (this.numberOfPagesToShow % this.getTotalNumberOfPages() === 1) ?
+      this.getTotalNumberOfPages() : this.numberOfPagesToShow;
+    this.currentPage = this.getStartIndex();
+    this.changePage(this.currentPage);
+  }
+
+  /**
+   * Below function is used for to get previous page number.
+   */
+
+  private previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      if (this.currentPage < this.getTotalNumberOfPages() && false === this.pages.includes(1)) {
+        this.pages.pop();
+        this.pages.unshift(this.pages[0] - 1);
+      }
       this.changePage(this.currentPage);
     }
   }
 
   /**
-   * generatePagination number
-   * @param pageNumber
+   * Below function is used for to get next page number.
    */
-  generatePaginationNumber() {
-    this.pages = [];
-    let pageLimit = this.currentPage;
-    if (this.goingReverse) {
-      for (let i = this.currentPage - 2; i <= pageLimit; i++) {
-        this.pages.push(i);
-      }
-    } else {
-      // Here I is initial point to generate pages for pagination
-      let i = this.currentPage % this.noOfPagesToShow === 2 ? this.currentPage - 1 :
-        this.currentPage % this.noOfPagesToShow === 0 ? this.currentPage - 2 : this.currentPage;
 
-      // below if condition is to identify current page and number of pages are equal then start I (start point from previous 2 number)
-      if (this.currentPage === this.numberOfPages) {
-        i = this.checkLastDividableNotThree();
-      }
-      pageLimit = this.numberOfPages < this.noOfPagesToShow ? this.numberOfPages : this.currentPage + 2;
-      if (pageLimit > this.numberOfPages) {
-        pageLimit = this.currentPage + (this.numberOfPages - this.currentPage);
-      } else if (pageLimit !== this.numberOfPages && pageLimit % this.noOfPagesToShow !== 0) {
-        const finalVal = (pageLimit % this.noOfPagesToShow === 1) ? 2 : 1;
-        pageLimit = i + finalVal;
-      }
-      // As we are initializing i in above code. So no need to specify the "i" here.
-      for (; i <= pageLimit; i++) {
-        this.pages.push(i);
-      }
+  private nextPage(): void {
+    this.currentPage++;
+    if (this.currentPage <= this.getTotalNumberOfPages() && false === this.pages.includes(this.getTotalNumberOfPages())) {
+      this.pages.shift();
+      const pageNo = this.pages[this.pages.length - 1] + 1;
+      this.pages.push(pageNo);
     }
+    this.changePage(this.currentPage);
   }
-  /**
-   * check which is last divisible number of 3
-   */
-  checkLastDividableNotThree() {
-    const val = this.numberOfPages % this.noOfPagesToShow === 0 ? this.noOfPagesToShow : this.numberOfPages % this.noOfPagesToShow;
-    return (this.numberOfPages - (val)) + 1;
-  }
+
   /**
    *
    * @param pageNumber select page numbers
    */
 
-  changePage(pageNumber: number) {
-    this.goingReverse = false;
-    if (pageNumber === 1) {
-      this.gotoSelectedPage(pageNumber);
-    } else if (pageNumber === this.numberOfPages) {
-      this.gotoSelectedPage(pageNumber);
-    } else if (this.currentPage < pageNumber) {
-      if (pageNumber % this.noOfPagesToShow === 1) {
-        this.gotoSelectedPage(pageNumber);
+  private changePage(selectedCurrentPage: number): void {
+    if (selectedCurrentPage === 1) { this.currentPage = selectedCurrentPage; this.pages = []; }
+
+    if (this.pages.length < this.numberOfPagesToShow) {
+      for (let i = this.currentPage; i <= this.numberOfPagesToShow; i++) {
+        this.pages.push(i);
       }
     } else {
-      this.goingReverse = true;
-      if (pageNumber % this.noOfPagesToShow === 0) {
-        this.gotoSelectedPage(pageNumber);
+      if (selectedCurrentPage === this.getTotalNumberOfPages()) {
+        this.currentPage = this.getTotalNumberOfPages();
+        this.pages = [];
+        let i = this.getTotalNumberOfPages() - (this.numberOfPagesToShow - 1);
+        for (; i <= this.getTotalNumberOfPages(); i++) {
+          this.pages.push(i);
+        }
+      }
+
+      if (this.currentPage > this.numberOfPagesToShow && this.currentPage < this.getTotalNumberOfPages()
+        && true === this.isItPageSelectDropdown) {
+        this.pages = [];
+        const tempPageNumbers = (this.currentPage + 2 < this.getTotalNumberOfPages()) ?
+          this.currentPage + 2 : this.getTotalNumberOfPages();
+        for (let i = this.currentPage; i <= tempPageNumbers; i++) {
+          this.pages.push(i);
+        }
+        this.isItPageSelectDropdown = false;
+      } else {
+        this.isItPageSelectDropdown = false;
       }
     }
-    this.currentPage = pageNumber;
-    this.getData(pageNumber, this.defaultSelectValue);
+    this.currentPage = selectedCurrentPage;
+    this.getData(this.currentPage, this.defaultNumberOfRows);
   }
+
   /**
-   * GOTO selected page
-   * @param pageNumber select page numbers
+   * Below function is used to generate number of pages as per total count.
    */
-  gotoSelectedPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-    this.generatePaginationNumber();
+
+  private getTotalNumberOfPages(): number {
+    return Math.ceil(this.totalRecords / this.defaultNumberOfRows);
   }
+
   /**
    * Below function is used to get data from backend or array of object.
    * @param pageNumber
    * @param limit
    */
 
-  getData(pageNumber: number, limit: number) {
+  private getData(pageNumber: number, limit: number): void {
     this.startPoint = (pageNumber - 1) * limit;
     // Below condition will get executed when there are more records than start point for the pagination
     this.emitStartAndLimit();
@@ -143,10 +159,22 @@ export class PaginationComponent implements OnInit {
    * Below function is used to emit the start point of chunk of data and count of records page need
    */
 
-  emitStartAndLimit() {
+  private emitStartAndLimit(): void {
     if (this.totalRecords > this.startPoint) {
-      this.itemsStartAndLimit.emit({ startPoint: this.startPoint, pageLimit: this.startPoint + this.defaultSelectValue });
+      this.itemsStartAndLimit.emit({ startPoint: this.startPoint, pageLimit: this.startPoint + this.defaultNumberOfRows });
     }
+  }
+
+  /**
+   * Below function is used start point of selected page number from pagination list
+   */
+
+  private setTableDataStartPoint(startPoint: number) {
+    this.pageDataStartIndex = Math.ceil((startPoint + 1) / this.defaultNumberOfRows);
+  }
+
+  private getStartIndex(): number {
+    return this.pageDataStartIndex;
   }
 
 }

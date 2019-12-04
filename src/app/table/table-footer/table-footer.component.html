@@ -1,2 +1,7 @@
-<app-pagination (itemsStartAndLimit)="getCurrentPageCount($event)" [totalRecords]="totalRecords"
-    [defaultSelectValue]="defaultSelectValue"></app-pagination>
+<app-pagination
+    (itemsStartAndLimit)="getCurrentPageCount($event)"
+    [totalRecords]="totalRecords"
+    [defaultNumberOfRows]="defaultNumberOfRows"
+    [tableDataStartIndex]="tableDataStartIndex"
+ >
+</app-pagination>

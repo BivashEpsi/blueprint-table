@@ -11,7 +11,10 @@ export class TableFooterComponent implements OnInit {
   totalRecords: number;
 
   @Input()
-  defaultSelectValue: number;
+  defaultNumberOfRows: number;
+
+  @Input()
+  tableDataStartIndex: number;
 
   @Output()
   getPageCount = new EventEmitter();

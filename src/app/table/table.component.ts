@@ -20,7 +20,7 @@ export class TableComponent implements OnInit, OnDestroy {
   totalRecords: number;
   pageRestrict: number;
   pageStartPoint: number;
-  defaultSelectValue = 10;
+  defaultNumberOfRows = 10;
 
   constructor(private tableDataService: TabledataService, private cd: ChangeDetectorRef) { }
 
@@ -39,7 +39,7 @@ export class TableComponent implements OnInit, OnDestroy {
       this.tableData = res.body.data;
       this.allData = res.body.data;
       this.totalRecords = res.body.totalCount;
-      this.getPageCount({ startPoint: 0, pageLimit: this.defaultSelectValue });
+      this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
       this.defaultSort();
       this.loadingTableData = false;
     });
@@ -61,7 +61,7 @@ export class TableComponent implements OnInit, OnDestroy {
     return array.sort(function (a, b) {
       const x = a[key];
       const y = b[key];
-      return x < y ? -1 : x > y ? 1 : 0;
+      return x < y ? -1 : 1;
     });
   }
 
@@ -69,7 +69,7 @@ export class TableComponent implements OnInit, OnDestroy {
     return array.sort(function (a, b) {
       const x = a[key];
       const y = b[key];
-      return x > y ? -1 : x > y ? 1 : 0;
+      return x > y ? -1 : 1;
     });
   }
 
