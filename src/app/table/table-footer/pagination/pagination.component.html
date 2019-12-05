@@ -19,9 +19,10 @@
                 (click)="previousPage()">
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
             </button>
-            <li *ngFor="let page of pages" [class.active]="page === currentPage"
+            <button class="current-page" *ngFor="let page of pages" [class.active]="page === currentPage"
                 [attr.aria-label]="( page === currentPage ) ? currentPage : null" (click)="changePage(page)">
-                {{page}}</li>
+                {{ page }}
+            </button>
             <button class="remove-btn-att" aria-label="Next page" [disabled]="setDisabledLink(getTotalNumberOfPages())"
                 (click)="nextPage()">
                 <i class="fa fa-angle-right" aria-hidden="true"></i>

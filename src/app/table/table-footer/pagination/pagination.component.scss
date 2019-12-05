@@ -29,12 +29,14 @@
 			display: inline-block;
 			cursor: pointer;
 
-			li 
+			button.current-page 
 			{
 				display: inline;
 				color: $midnight;
 				padding: 8px 8px;
-
+				background: none;
+				border: none;
+				
 				&:hover 
 				{
 					&:not(.active) 
@@ -45,7 +47,7 @@
 				}
 			}
 
-			li.active 
+			button.current-page.active 
 			{
 				background-color: $haze;
 				color: $midnight;

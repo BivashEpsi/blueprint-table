@@ -6,6 +6,8 @@ describe('PaginationComponent', () => {
   let component: PaginationComponent;
   let fixture: ComponentFixture<PaginationComponent>;
 
+  // TODO : - Will work on test cases later as currently working on functionality.
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PaginationComponent ]

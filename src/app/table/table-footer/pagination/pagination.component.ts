@@ -37,6 +37,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
+    this.setRowLimit();
     this.changePage(this.currentPage);
   }
 
@@ -59,6 +60,12 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.isItPageSelectDropdown = true;
     this.currentPage = 1;
     this.numberOfPagesToShow = 3;
+    if (this.getTotalNumberOfPages() !== this.numberOfPagesToShow && true === this.isItPageSelectDropdown) {
+      this.numberOfPagesToShow = (this.getTotalNumberOfPages() > this.numberOfPagesToShow) ?
+        this.numberOfPagesToShow : this.getTotalNumberOfPages();
+    } else {
+      this.numberOfPagesToShow = this.numberOfPagesToShow;
+    }
     this.changePage(this.currentPage);
     this.setTableDataStartPoint(this.tableDataStartIndex);
     this.numberOfPagesToShow = (this.numberOfPagesToShow % this.getTotalNumberOfPages() === 1) ?

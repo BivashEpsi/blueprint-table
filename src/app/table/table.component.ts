@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TabledataService } from '../service/tabledata.service';
 
 @Component({
@@ -18,11 +18,11 @@ export class TableComponent implements OnInit, OnDestroy {
   isSortActive = true;
   loadingTableData = true;
   totalRecords: number;
-  pageRestrict: number;
-  pageStartPoint: number;
+  setPageLimit: number;
+  setPageStartPoint: number;
   defaultNumberOfRows = 10;
 
-  constructor(private tableDataService: TabledataService, private cd: ChangeDetectorRef) { }
+  constructor(private tableDataService: TabledataService) { }
 
   ngOnInit() {
     this.columnValue = [
@@ -113,9 +113,9 @@ export class TableComponent implements OnInit, OnDestroy {
 
   getPageCount(event: { startPoint: any; pageLimit: any; }) {
     if (this.tableData.length > 0) {
-      this.pageRestrict = event.pageLimit;
-      this.pageStartPoint = event.startPoint;
-      this.tableData = this.allData.slice(this.pageStartPoint, this.pageRestrict);
+      this.setPageLimit = event.pageLimit;
+      this.setPageStartPoint = event.startPoint;
+      this.tableData = this.allData.slice(this.setPageStartPoint, this.setPageLimit);
     }
   }
 
