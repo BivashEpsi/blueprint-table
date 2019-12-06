@@ -21,6 +21,8 @@ export class TableComponent implements OnInit, OnDestroy {
   setPageLimit: number;
   setPageStartPoint: number;
   defaultNumberOfRows = 10;
+  paginationListToShow = 3;
+  showCurrentPage = 1;
 
   constructor(private tableDataService: TabledataService) { }
 

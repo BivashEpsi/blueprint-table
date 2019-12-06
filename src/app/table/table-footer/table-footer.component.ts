@@ -16,6 +16,12 @@ export class TableFooterComponent implements OnInit {
   @Input()
   tableDataStartIndex: number;
 
+  @Input()
+  showCurrentPage: number;
+
+  @Input()
+  paginationListToShow: number;
+
   @Output()
   getPageCount = new EventEmitter();
 

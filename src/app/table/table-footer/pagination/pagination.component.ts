@@ -20,10 +20,16 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input()
   tableDataStartIndex: number;
 
+  @Input()
+  paginationListToShow: number;
+
+  @Input()
+  showCurrentPage: number;
+
   pages = [];
-  currentPage = 1;
+  currentPage: number;
   startPoint: number;
-  numberOfPagesToShow = 3;
+  numberOfPagesToShow: number;
   pageDataStartIndex: number;
   isItPageSelectDropdown = false;
 
@@ -58,8 +64,8 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   setRowLimit() {
     this.isItPageSelectDropdown = true;
-    this.currentPage = 1;
-    this.numberOfPagesToShow = 3;
+    this.currentPage = this.showCurrentPage;
+    this.numberOfPagesToShow = this.paginationListToShow;
     if (this.getTotalNumberOfPages() !== this.numberOfPagesToShow && true === this.isItPageSelectDropdown) {
       this.numberOfPagesToShow = (this.getTotalNumberOfPages() > this.numberOfPagesToShow) ?
         this.numberOfPagesToShow : this.getTotalNumberOfPages();
@@ -147,7 +153,7 @@ export class PaginationComponent implements OnInit, OnChanges {
    */
 
   private getTotalNumberOfPages(): number {
-    return Math.ceil(this.totalRecords / this.defaultNumberOfRows);
+    return Math.trunc(this.totalRecords / this.defaultNumberOfRows) + 1;
   }
 
   /**
@@ -177,7 +183,7 @@ export class PaginationComponent implements OnInit, OnChanges {
    */
 
   private setTableDataStartPoint(startPoint: number) {
-    this.pageDataStartIndex = Math.ceil((startPoint + 1) / this.defaultNumberOfRows);
+    this.pageDataStartIndex = Math.trunc((startPoint + 1) / this.defaultNumberOfRows) + 1;
   }
 
   private getStartIndex(): number {
