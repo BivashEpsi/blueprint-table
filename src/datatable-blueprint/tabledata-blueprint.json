@@ -1,0 +1,39 @@
+TableData = {
+	columnHeaders :[{
+		fieldName: "col1",
+		fieldLabel: "col1",
+		index:0,
+		sort:true,
+		fieldType: text,
+		},
+		{
+		fieldName: "col2",
+		fieldLabel: "col2",
+		index:1,
+		sort:true,
+		fieldType:select,
+		fieldTypeOptions: [{key:"",value:""}]
+	}],
+	checkboxEnableColumn: ["col1"],
+	columnSelectionDropdown: {
+		defaultColumns: ["col1", "col2"]
+	},
+	data: data,
+	totalRecords:  totalRecords,
+	sortOrder: {order:"ascending", column: "col1"},
+	backendOperations: true,
+	pagination: true,
+	linkEditOption : "col1",
+	newRowInsertion: [{
+		buttonLabel: "New Item",
+		action: "add"
+	}],
+	actionCol: [{
+	 buttonLabel : "Edit",
+	 action: "edit"
+	},{
+	 buttonLabel : "Delete",
+	 action: "delete"
+	}]
+	,defaultRows : 10
+}
