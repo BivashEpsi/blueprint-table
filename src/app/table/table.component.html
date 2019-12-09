@@ -11,16 +11,16 @@
             </ng-container>
         </tr>
     </thead>
-        <tbody *ngIf="loadingTableData; else loaded">
-            <tr class="table-empty">
-                <td colspan="100%">
-                    <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i>Loading data
-                </td>
-            </tr>
-        </tbody>
+    <tbody *ngIf="loadingTableData; else loaded">
+        <tr class="table-empty">
+            <td colspan="100%">
+                <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i>Loading data
+            </td>
+        </tr>
+    </tbody>
     <ng-template #loaded>
-        <tbody *ngIf="allData.length > 0; else noColumnData">
-            <tr *ngFor="let dataList of allData">
+        <tbody *ngIf="tableData.length > 0; else noColumnData">
+            <tr *ngFor="let dataList of tableData">
                 <td>{{dataList.date}}</td>
                 <td>{{dataList.amount}}</td>
                 <td>{{dataList.phone}}</td>
@@ -38,3 +38,6 @@
         </tbody>
     </ng-template>
 </table>
+<app-table-footer *ngIf="totalRecords" [tableDataStartIndex]="setPageStartPoint" [totalRecords]="totalRecords"
+    [defaultNumberOfRows]="defaultNumberOfRows" [paginationListToShow]="paginationListToShow"
+    [showCurrentPage]="showCurrentPage" (getPageCount)="getPageCount($event)"></app-table-footer>

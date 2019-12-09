@@ -8,7 +8,8 @@ import { TabledataService } from '../service/tabledata.service';
 })
 
 export class TableComponent implements OnInit, OnDestroy {
-  allData: [] = [];
+  tableData = [];
+  allData = [];
   columnValue: any;
   loadService: any;
   defaultSortColName = 'amount';
@@ -16,6 +17,12 @@ export class TableComponent implements OnInit, OnDestroy {
   sortOrder = 'ascending';
   isSortActive = true;
   loadingTableData = true;
+  totalRecords: number;
+  setPageLimit: number;
+  setPageStartPoint: number;
+  defaultNumberOfRows = 10;
+  paginationListToShow = 3;
+  showCurrentPage = 1;
 
   constructor(private tableDataService: TabledataService) { }
 
@@ -31,7 +38,10 @@ export class TableComponent implements OnInit, OnDestroy {
 
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe((res) => {
-      this.allData = res.body;
+      this.tableData = res.body.data;
+      this.allData = res.body.data;
+      this.totalRecords = res.body.totalCount;
+      this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
       this.defaultSort();
       this.loadingTableData = false;
     });
@@ -42,11 +52,11 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ascSort(colHeader: string) {
-    this.sortByKeyAsc(this.allData, colHeader);
+    this.sortByKeyAsc(this.tableData, colHeader);
   }
 
   descSort(colHeader: string) {
-    this.sortByKeyDesc(this.allData, colHeader);
+    this.sortByKeyDesc(this.tableData, colHeader);
   }
 
   sortByKeyAsc(array, key) {
@@ -95,6 +105,19 @@ export class TableComponent implements OnInit, OnDestroy {
       this.isSortActive = true;
       this.sortOrder = 'descending';
       this.defaultSortColName = '';
+    }
+  }
+
+  /**
+   * This function emit number of page limit and starting point of records
+   * @param : event it is a object
+   */
+
+  getPageCount(event: { startPoint: any; pageLimit: any; }) {
+    if (this.tableData.length > 0) {
+      this.setPageLimit = event.pageLimit;
+      this.setPageStartPoint = event.startPoint;
+      this.tableData = this.allData.slice(this.setPageStartPoint, this.setPageLimit);
     }
   }
 
