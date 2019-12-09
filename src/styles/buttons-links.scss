@@ -1,4 +1,4 @@
-@import '_global-variables.scss';
+@import "_global-variables.scss";
 
 a {
   font-weight: $font-weight-semi-bold;
@@ -31,14 +31,14 @@ a {
   }
 }
 
-.text-btn {
+.btn-text {
   outline: unset;
   border: none;
   padding: 0;
   background: none;
 }
 
-.text-btn,
+.btn-text,
 .link-primary {
   color: $accent-color-primary;
   font-weight: $font-weight-semi-bold;
@@ -145,50 +145,45 @@ a {
   }
 }
 
-.btn-input-addon
-{
-    min-width: 30px;
-    min-height: 30px;
-    border-radius: 0;
-    border: 1px solid $accent-color-primary;
-    background: $coconut;
-    color: $accent-color-primary;
+.btn-input-addon {
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 0;
+  border: 1px solid $accent-color-primary;
+  background: $coconut;
+  color: $accent-color-primary;
 
-    &:hover
-    {
-        border-color: $accent-color-primary-hover;
-        background: $accent-color-primary-hover;
-        color: $coconut;
+  &:hover {
+    border-color: $accent-color-primary-hover;
+    background: $accent-color-primary-hover;
+    color: $coconut;
+  }
+
+  &.btn-input-addon-clear {
+    border-left: 0;
+    border-color: $border-color-primary;
+
+    &:hover {
+      border-color: $border-color-primary;
+      background: $coconut;
+      color: $accent-color-primary-hover;
     }
+  }
 
-    &.btn-input-addon-clear
-    {
-        border-left: 0;
-        border-color: $border-color-primary;
-
-        &:hover
-        {
-            border-color: $border-color-primary;
-            background: $coconut;
-            color: $accent-color-primary-hover;
-        }
-    }
-
-    & i:nth-of-type(2n)
-    {
-        // for input addons with one button and two icons
-        // e.g.: date + time pickers with calendar and clock icons
-        padding-left: 8px;
-    }
+  & i:nth-of-type(2n) {
+    // for input addons with one button and two icons
+    // e.g.: date + time pickers with calendar and clock icons
+    padding-left: 8px;
+  }
 }
 
-.icon-btn {
+.btn-icon {
   width: 30px;
   height: 30px;
   padding: 5px;
 }
 
-.icon-btn-inline {
+.btn-icon-inline {
   width: auto;
   height: auto;
   border: 0;
@@ -201,7 +196,7 @@ a {
   }
 }
 
-.icon-btn-inline-tooltip {
+.btn-icon-inline-tooltip {
   display: inline-flex;
   border: 0;
   padding: 0;
@@ -244,7 +239,7 @@ a {
   }
 }
 
-.icon-btn[disabled] {
+.btn-icon[disabled] {
   border: 1px solid $haze;
   background: $mist;
   color: $font-color-secondary;
@@ -268,5 +263,5 @@ button[disabled],
 }
 
 .icon-right {
-  margin-left: 8px;
+  margin-left: 5px;
 }
