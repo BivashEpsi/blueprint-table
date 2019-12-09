@@ -130,18 +130,22 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   search(query) {
-    this.tableData = this.allData.filter(d => {
-      for (let col of this.columnValue) {
-        if (d[col.key] && String(d[col.key]).includes(query)) {
-          return true;
+    this.tableData = this.allData
+      .filter(d => {
+        for (let col of this.columnValue) {
+          if (d[col.key] && String(d[col.key]).includes(query)) {
+            return true;
+          }
         }
-      }
-      return false;
-    });
+        return false;
+      })
+      .slice(this.setPageStartPoint, this.setPageLimit);
   }
 
   clearSearch() {
     this.tableData = [...this.allData];
+    this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
+    this.defaultSort();
   }
 
   ngOnDestroy() {

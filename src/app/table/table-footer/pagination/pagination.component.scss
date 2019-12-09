@@ -1,72 +1,61 @@
 @import "../../../../styles/_global-variables";
 
-.table-pagination 
-{
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 15px 20px 15px;
-	position: sticky;
+.table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 20px 15px;
+  position: sticky;
 
-	.tbl-divider
-	{
-		position: relative;
+  .tbl-divider {
+    position: relative;
 
-		.tbl-footer-label-right
-		{
-			color: $storm;
-			padding: 8px 10px;
-		}
-		
-		.page-select-dropdown
-		{
-			color: $storm;
-			font-size: 12px;
-		}
+    .tbl-footer-label-right {
+      color: $storm;
+      padding: 8px 10px;
+    }
 
-		.pagination 
-		{
-			display: inline-block;
-			cursor: pointer;
+    .page-select-dropdown {
+      color: $storm;
+      font-size: 12px;
+    }
 
-			button.current-page 
-			{
-				display: inline;
-				color: $midnight;
-				padding: 8px 8px;
-				background: none;
-				border: none;
-				
-				&:hover 
-				{
-					&:not(.active) 
-					{
-						background-color: $haze;
-						color: $midnight;
-					}
-				}
-			}
+    .pagination {
+      display: inline-block;
+      cursor: pointer;
 
-			button.current-page.active 
-			{
-				background-color: $haze;
-				color: $midnight;
-			}
+      button.current-page {
+        display: inline;
+        color: $midnight;
+        padding: 8px 8px;
+        background: none;
+        border: none;
 
-			button.remove-btn-att 
-			{
-				background: none;
-				border: none;
-				color : $ultramarine;
-				cursor: pointer;
-			}
+        &:hover {
+          &:not(.active) {
+            background-color: $haze;
+            color: $midnight;
+          }
+        }
+      }
 
-			button.remove-btn-att:disabled 
-			{
-				color: $storm;
-				cursor: not-allowed;
-				text-decoration: underline;
-			}
-		}
-	}
+      button.current-page.active {
+        background-color: $haze;
+        color: $midnight;
+      }
+
+      button.remove-btn-att {
+        background: none;
+        border: none;
+        color: $ultramarine;
+        cursor: pointer;
+      }
+
+      button.remove-btn-att:disabled {
+        color: $storm;
+        cursor: not-allowed;
+        text-decoration: underline;
+      }
+    }
+  }
 }
