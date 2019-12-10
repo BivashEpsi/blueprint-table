@@ -1,0 +1,17 @@
+@import "../../../../styles/_global-variables";
+
+.table-display-density
+{
+
+    .display-density-label
+    {
+        padding: 10px;
+        color: $storm;
+    }
+
+    .display-density-dropdown
+    {
+        color: $storm;
+        font-size: 12px;
+    }
+}

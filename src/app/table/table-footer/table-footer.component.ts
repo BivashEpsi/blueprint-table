@@ -25,6 +25,9 @@ export class TableFooterComponent implements OnInit {
   @Output()
   getPageCount = new EventEmitter();
 
+  @Output()
+  displayDensityEmitter = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
@@ -33,4 +36,9 @@ export class TableFooterComponent implements OnInit {
   getCurrentPageCount(event: number) {
     this.getPageCount.emit(event);
   }
+
+  setDisplayDensity(event: { target: { value: any; }; }) {
+    this.displayDensityEmitter.emit(event);
+  }
+
 }

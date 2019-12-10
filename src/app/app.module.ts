@@ -8,12 +8,14 @@ import { TableComponent } from './table/table.component';
 import { PaginationComponent } from './table/table-footer/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { TableFooterComponent } from './table/table-footer/table-footer.component';
+import { DisplayDensityComponent } from './table/table-footer/display-density/display-density.component';
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     PaginationComponent,
-    TableFooterComponent
+    TableFooterComponent,
+    DisplayDensityComponent
   ],
   imports: [
     BrowserModule,

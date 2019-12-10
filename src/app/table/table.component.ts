@@ -23,6 +23,7 @@ export class TableComponent implements OnInit, OnDestroy {
   defaultNumberOfRows = 10;
   paginationListToShow = 3;
   showCurrentPage = 1;
+  densityClassName: string;
 
   constructor(private tableDataService: TabledataService) { }
 
@@ -119,6 +120,19 @@ export class TableComponent implements OnInit, OnDestroy {
       this.setPageStartPoint = event.startPoint;
       this.tableData = this.allData.slice(this.setPageStartPoint, this.setPageLimit);
     }
+  }
+
+  setDisplayDensityValue(densityName: { target: { value: string; }; }) {
+    if (densityName === undefined) { return null; }
+    if (densityName.target.value === 'Comfortable') {
+      this.densityClassName = null;
+    } else {
+      this.densityClassName = 'table-compact';
+    }
+  }
+
+  getDisplayDensityValue() {
+    return this.densityClassName;
   }
 
   ngOnDestroy() {

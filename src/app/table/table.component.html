@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table" [ngClass]="getDisplayDensityValue()">
     <thead>
         <tr>
             <ng-container *ngIf="columnValue">
@@ -38,6 +38,8 @@
         </tbody>
     </ng-template>
 </table>
+
 <app-table-footer *ngIf="totalRecords" [tableDataStartIndex]="setPageStartPoint" [totalRecords]="totalRecords"
     [defaultNumberOfRows]="defaultNumberOfRows" [paginationListToShow]="paginationListToShow"
-    [showCurrentPage]="showCurrentPage" (getPageCount)="getPageCount($event)"></app-table-footer>
+    [showCurrentPage]="showCurrentPage" (getPageCount)="getPageCount($event)"
+    (displayDensityEmitter)="setDisplayDensityValue($event)"></app-table-footer>

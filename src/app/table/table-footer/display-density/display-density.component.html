@@ -1,0 +1,9 @@
+<div class="table-display-density">
+    <label class="display-density-label" for="displayDensity">Display Density:</label>
+    <select id="display-density" name="displayDensity" class="display-density-dropdown" (change)="setDisplayDensity($event)"
+        [(ngModel)]="displayDensity">
+        <option *ngFor="let item of displayDensityOptions" [value]="item.selectedValue">
+            {{item.selectedValue}}
+        </option>
+    </select>
+</div>
