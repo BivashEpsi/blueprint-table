@@ -1,9 +1,7 @@
 <app-pagination
-    (itemsStartAndLimit)="getCurrentPageCount($event)"
     [totalRecords]="totalRecords"
     [defaultNumberOfRows]="defaultNumberOfRows"
-    [tableDataStartIndex]="tableDataStartIndex"
-    [paginationListToShow]="paginationListToShow"
-    [showCurrentPage]="showCurrentPage"
+    [pageBuffer]="pageBuffer"
+    (pageData)="emitPageData($event)"
  >
 </app-pagination>

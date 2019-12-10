@@ -4,31 +4,31 @@
             {{ totalRecords }} results
         </span>
         <label for="numberOfRows" class="sr-only">Number of Rows per Page</label>
-        <select id="numberOfRows" class="page-select-dropdown" (change)="setRowLimit()"
-            [(ngModel)]="defaultNumberOfRows">
-            <option *ngFor="let item of rowData" [ngValue]="item.rowValue">
-                {{item.rowValue}} rows
+        <select id="numberOfRows" class="page-select-dropdown" (change)="paginate()"
+            [(ngModel)]="numberOfRows">
+            <option *ngFor="let item of numberOfRowsOptions" [ngValue]="item">
+                {{item}} rows
             </option>
         </select>
         <div class="pagination">
-            <button class="remove-btn-att" aria-label="First page" [disabled]="setDisabledLink(1)"
+            <button aria-label="First page" [disabled]="isStepperDisabled(1)"
                 (click)="changePage(1)">
                 <i class="fa fa-angle-double-left" aria-hidden="true"></i>
             </button>
-            <button class="remove-btn-att" aria-label="Previous page" [disabled]="setDisabledLink(1)"
-                (click)="previousPage()">
+            <button aria-label="Previous page" [disabled]="isStepperDisabled(1)"
+                (click)="changePage(currentPage - 1)">
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
             </button>
-            <button class="current-page" *ngFor="let page of pages" [class.active]="page === currentPage"
+            <button class="current-page" *ngFor="let page of pageButtons" [class.active]="page === currentPage"
                 [attr.aria-label]="( page === currentPage ) ? currentPage : null" (click)="changePage(page)">
                 {{ page }}
             </button>
-            <button class="remove-btn-att" aria-label="Next page" [disabled]="setDisabledLink(getTotalNumberOfPages())"
-                (click)="nextPage()">
+            <button aria-label="Next page" [disabled]="isStepperDisabled(totalPages)"
+                (click)="changePage(currentPage + 1)">
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
             </button>
-            <button class="remove-btn-att" aria-label="Last page" [disabled]="setDisabledLink(getTotalNumberOfPages())"
-                (click)="changePage(getTotalNumberOfPages())">
+            <button aria-label="Last page" [disabled]="isStepperDisabled(totalPages)"
+                (click)="changePage(totalPages)">
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
             </button>
         </div>
