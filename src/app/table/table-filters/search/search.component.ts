@@ -6,6 +6,10 @@ import { Component, Input, Output, OnInit, EventEmitter } from "@angular/core";
   styleUrls: ["./search.component.scss"]
 })
 export class SearchComponent implements OnInit {
+  // Label for search field
+  @Input()
+  label = "Search";
+
   // Placeholder Text
   @Input()
   placeholder = "Search";
@@ -13,10 +17,6 @@ export class SearchComponent implements OnInit {
   // Is the search is in progress?
   @Input()
   isSearching = false;
-
-  // Label for search field
-  @Input()
-  label = "Search";
 
   // Emit the search query string
   @Output()
@@ -29,9 +29,9 @@ export class SearchComponent implements OnInit {
   public searchFilter = "";
   public showClearIcon = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onClearSearch() {
     this.searchFilter = "";
