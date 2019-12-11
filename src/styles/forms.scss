@@ -1,0 +1,66 @@
+@import "_global-variables.scss";
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.custom-select,
+.form-control {
+  height: 30px;
+  border-radius: 0;
+  border: 1px solid $border-color-primary;
+  padding: 5px 10px;
+  color: $font-color-primary;
+  font-size: $font-size-body;
+
+  &::placeholder {
+    color: $font-color-secondary;
+    opacity: 1;
+  }
+
+  &:focus {
+    border-color: $border-color-primary;
+    background: $coconut;
+    color: $font-color-primary;
+  }
+
+  &:disabled,
+  &[readonly] {
+    border-color: rgba($border-color-primary, 0.5);
+    background-color: $coconut;
+    color: $font-color-secondary;
+    opacity: 1;
+    cursor: not-allowed;
+
+    &::placeholder {
+      // TODO: this is a temporary fix for minimum contrast, KL to work with CC on a longterm solution
+      color: $font-color-secondary;
+      opacity: 1;
+    }
+  }
+
+  &[readonly] {
+    &:focus {
+      box-shadow: $box-shadow-focus-readonly;
+    }
+  }
+  // TODO: add styles to set border color and focus styles for inputs with invalid values
+}
+
+.input-group-append {
+  height: 30px;
+}
+
+.invalid-feedback {
+  display: inline;
+  margin-top: 2px;
+  margin-bottom: 0;
+  color: $feedback-color-warning;
+  font-size: $font-size-body;
+}

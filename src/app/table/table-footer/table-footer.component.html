@@ -1,12 +1,14 @@
-<div class="footer-container">
-    <div class="display-Density">
-        <app-display-density (displayDensityEmitter)="setDisplayDensity($event)">
-        </app-display-density>
-    </div>
-    <div class="pagination">
-        <app-pagination (itemsStartAndLimit)="getCurrentPageCount($event)" [totalRecords]="totalRecords"
-            [defaultNumberOfRows]="defaultNumberOfRows" [tableDataStartIndex]="tableDataStartIndex"
-            [paginationListToShow]="paginationListToShow" [showCurrentPage]="showCurrentPage">
-        </app-pagination>
-    </div>
-</div>
+<app-display-density (displayDensityEmitter)="setDisplayDensity($event)">
+</app-display-density>
+
+<app-pagination
+    (itemsStartAndLimit)="getCurrentPageCount($event)"
+    [totalRecords]="totalRecords"
+    [defaultNumberOfRows]="defaultNumberOfRows"
+    [tableDataStartIndex]="tableDataStartIndex"
+    [paginationListToShow]="paginationListToShow"
+    [showCurrentPage]="showCurrentPage"
+ >
+</app-pagination>
+
+

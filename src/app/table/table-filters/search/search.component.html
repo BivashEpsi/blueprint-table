@@ -1,0 +1,30 @@
+<label for="search">{{ label }}</label>
+<div class="input-group">
+  <input
+    type="text"
+    id="search"
+    class="form-control"
+    [placeholder]="placeholder"
+    (keyup)="inputController($event)"
+    [(ngModel)]="searchFilter"
+  />
+  <div class="input-group-append">
+    <button
+      [hidden]="!showClearIcon"
+      type="button"
+      class="btn btn-icon btn-input-addon btn-input-addon-clear"
+      (click)="onClearSearch()"
+    >
+      <span class="sr-only">Clear Search</span>
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="onSearch()">
+      <span class="sr-only">Search</span>
+      <i
+        class="fa"
+        [ngClass]="isSearching ? 'fa-spinner fa-spin' : 'fa-search'"
+        aria-hidden="true"
+      ></i>
+    </button>
+  </div>
+</div>
