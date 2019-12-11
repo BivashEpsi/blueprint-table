@@ -7,8 +7,10 @@ import { TabledataService } from "../service/tabledata.service";
   styleUrls: ["./table.component.scss"]
 })
 export class TableComponent implements OnInit, OnDestroy {
-  tableData = [];
   allData = [];
+  filteredData = [];
+  tableData = [];
+
   columnValue: any;
   loadService: any;
   defaultSortColName = "amount";
@@ -16,12 +18,13 @@ export class TableComponent implements OnInit, OnDestroy {
   sortOrder = "ascending";
   isSortActive = true;
   loadingTableData = true;
+
+  // Pagination
   totalRecords: number;
-  setPageLimit: number;
-  setPageStartPoint: number;
+  numberOfRows;
+  currentPage = 1;
+  pageBuffer = 1;
   defaultNumberOfRows = 10;
-  paginationListToShow = 3;
-  showCurrentPage = 1;
 
   constructor(private tableDataService: TabledataService) {}
 
@@ -37,10 +40,10 @@ export class TableComponent implements OnInit, OnDestroy {
 
   showData() {
     this.loadService = this.tableDataService.get_cuData().subscribe(res => {
-      this.tableData = res.body.data;
       this.allData = res.body.data;
+      this.filteredData = res.body.data;
       this.totalRecords = res.body.totalCount;
-      this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
+      this.paginate({currentPage: this.currentPage, numberOfRows: this.defaultNumberOfRows});
       this.defaultSort();
       this.loadingTableData = false;
     });
@@ -51,11 +54,11 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ascSort(colHeader: string) {
-    this.sortByKeyAsc(this.tableData, colHeader);
+    this.sortByKeyAsc(this.filteredData, colHeader);
   }
 
   descSort(colHeader: string) {
-    this.sortByKeyDesc(this.tableData, colHeader);
+    this.sortByKeyDesc(this.filteredData, colHeader);
   }
 
   sortByKeyAsc(array, key) {
@@ -111,26 +114,11 @@ export class TableComponent implements OnInit, OnDestroy {
       this.sortOrder = "descending";
       this.defaultSortColName = "";
     }
-  }
-
-  /**
-   * This function emit number of page limit and starting point of records
-   * @param : event it is a object
-   */
-
-  getPageCount(event: { startPoint: any; pageLimit: any }) {
-    if (this.tableData.length > 0) {
-      this.setPageLimit = event.pageLimit;
-      this.setPageStartPoint = event.startPoint;
-      this.tableData = this.allData.slice(
-        this.setPageStartPoint,
-        this.setPageLimit
-      );
-    }
+    this.paginate({currentPage: this.currentPage, numberOfRows: this.numberOfRows});
   }
 
   search(query) {
-    this.tableData = this.allData
+    this.filteredData = this.allData
       .filter(d => {
         for (let col of this.columnValue) {
           if (d[col.key] && String(d[col.key]).includes(query)) {
@@ -138,14 +126,27 @@ export class TableComponent implements OnInit, OnDestroy {
           }
         }
         return false;
-      })
-      .slice(this.setPageStartPoint, this.setPageLimit);
+      });
+      this.totalRecords = this.filteredData.length;
+      this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
   }
 
   clearSearch() {
-    this.tableData = [...this.allData];
-    this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
+    this.filteredData = [...this.allData];
+    this.totalRecords = this.filteredData.length;
+    this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
     this.defaultSort();
+  }
+
+  paginate(pageData: {
+    currentPage: number;
+    numberOfRows: number;
+  }) {
+    this.currentPage = pageData.currentPage;
+    this.numberOfRows = pageData.numberOfRows;
+    let startIndex = (pageData.currentPage - 1) * pageData.numberOfRows;
+    let endIndex = startIndex + pageData.numberOfRows;
+    this.tableData = this.filteredData.slice(startIndex, endIndex);
   }
 
   ngOnDestroy() {

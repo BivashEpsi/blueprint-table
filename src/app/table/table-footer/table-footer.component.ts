@@ -12,25 +12,19 @@ export class TableFooterComponent implements OnInit {
 
   @Input()
   defaultNumberOfRows: number;
-
+  
   @Input()
-  tableDataStartIndex: number;
-
-  @Input()
-  showCurrentPage: number;
-
-  @Input()
-  paginationListToShow: number;
+  pageBuffer: number;
 
   @Output()
-  getPageCount = new EventEmitter();
+  pageData = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  getCurrentPageCount(event: number) {
-    this.getPageCount.emit(event);
+  emitPageData(event) {
+    this.pageData.emit(event);
   }
 }

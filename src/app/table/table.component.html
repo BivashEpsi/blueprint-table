@@ -45,10 +45,8 @@
 </table>
 <app-table-footer
   *ngIf="totalRecords"
-  [tableDataStartIndex]="setPageStartPoint"
   [totalRecords]="totalRecords"
   [defaultNumberOfRows]="defaultNumberOfRows"
-  [paginationListToShow]="paginationListToShow"
-  [showCurrentPage]="showCurrentPage"
-  (getPageCount)="getPageCount($event)"
+  [pageBuffer]="pageBuffer"
+  (pageData)="paginate($event)"
 ></app-table-footer>
