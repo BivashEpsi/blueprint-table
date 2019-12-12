@@ -1,53 +1,49 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { TabledataService } from "../service/tabledata.service";
+import { Component, OnInit, OnChanges, Input } from "@angular/core";
 
 @Component({
-  selector: "app-table",
+  selector: "bp-table",
   templateUrl: "./table.component.html",
   styleUrls: ["./table.component.scss"]
 })
-export class TableComponent implements OnInit, OnDestroy {
-  allData = [];
+export class TableComponent implements OnInit, OnChanges {
+
+  @Input() data = [];
+  @Input() columnValue: any;
+  @Input() isTableLoading = true;
+
+  // Data
   filteredData = [];
   tableData = [];
 
-  columnValue: any;
-  loadService: any;
+  // Sorting
   defaultSortColName = "amount";
   colIndex: number;
   sortOrder = "ascending";
   isSortActive = true;
-  loadingTableData = true;
 
   // Pagination
+  startIndex: number;
+  endIndex: number;
   totalRecords: number;
   numberOfRows;
   currentPage = 1;
   pageBuffer = 1;
   defaultNumberOfRows = 10;
 
-  constructor(private tableDataService: TabledataService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.columnValue = [
-      { key: "date", value: "Date" },
-      { key: "amount", value: "Amount" },
-      { key: "phone", value: "Phone" },
-      { key: "description", value: "Description" }
-    ];
-    this.showData();
-  }
+  ngOnInit() {}
 
-  showData() {
-    this.loadService = this.tableDataService.get_cuData().subscribe(res => {
-      this.allData = res.body.data;
-      this.filteredData = res.body.data;
-      this.totalRecords = res.body.totalCount;
+  ngOnChanges(changes) {
+    if (changes.isTableLoading && changes.isTableLoading.currentValue === false && this.data.length > 0) {
+      this.filteredData = [...this.data];
+      this.totalRecords = this.data.length;
       this.paginate({currentPage: this.currentPage, numberOfRows: this.defaultNumberOfRows});
       this.defaultSort();
-      this.loadingTableData = false;
-    });
+    }
   }
+
+  // --------------- Sorting ---------------
 
   defaultSort() {
     this.ascSort(this.defaultSortColName);
@@ -117,8 +113,10 @@ export class TableComponent implements OnInit, OnDestroy {
     this.paginate({currentPage: this.currentPage, numberOfRows: this.numberOfRows});
   }
 
+  // --------------- Searching ---------------
+
   search(query) {
-    this.filteredData = this.allData
+    this.filteredData = this.data
       .filter(d => {
         for (let col of this.columnValue) {
           if (d[col.key] && String(d[col.key]).includes(query)) {
@@ -132,24 +130,26 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   clearSearch() {
-    this.filteredData = [...this.allData];
+    this.filteredData = [...this.data];
     this.totalRecords = this.filteredData.length;
     this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
     this.defaultSort();
   }
 
+  // --------------- Pagination ---------------
+
   paginate(pageData: {
     currentPage: number;
     numberOfRows: number;
   }) {
-    this.currentPage = pageData.currentPage;
+    if (pageData.numberOfRows !== this.numberOfRows) {
+      this.currentPage = Math.floor(this.startIndex / pageData.numberOfRows) + 1 || 1;
+    } else {
+      this.currentPage = pageData.currentPage;
+    }
     this.numberOfRows = pageData.numberOfRows;
-    let startIndex = (pageData.currentPage - 1) * pageData.numberOfRows;
-    let endIndex = startIndex + pageData.numberOfRows;
-    this.tableData = this.filteredData.slice(startIndex, endIndex);
-  }
-
-  ngOnDestroy() {
-    this.loadService.unsubscribe();
+    this.startIndex = (this.currentPage - 1) * this.numberOfRows;
+    this.endIndex = this.startIndex + this.numberOfRows;
+    this.tableData = this.filteredData.slice(this.startIndex, this.endIndex);
   }
 }

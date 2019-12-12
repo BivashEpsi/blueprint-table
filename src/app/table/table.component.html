@@ -15,7 +15,7 @@
       </ng-container>
     </tr>
   </thead>
-  <tbody *ngIf="loadingTableData; else loaded">
+  <tbody *ngIf="isTableLoading; else loaded">
     <tr class="table-empty">
       <td colspan="100%">
         <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i
@@ -48,5 +48,6 @@
   [totalRecords]="totalRecords"
   [defaultNumberOfRows]="defaultNumberOfRows"
   [pageBuffer]="pageBuffer"
+  [pageNumber]="currentPage"
   (pageData)="paginate($event)"
 ></app-table-footer>

@@ -6,6 +6,9 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
   styleUrls: ['./pagination.component.scss']
 })
 
+
+// This component only handles the actual pagination part of the table,
+// the actual rows and rendering is handled by the table component
 export class PaginationComponent implements OnInit, OnChanges {
 
   @Input()
@@ -16,6 +19,9 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   @Input()
   pageBuffer = 1;
+
+  @Input()
+  pageNumber: number;
   
   @Output()
   pageData = new EventEmitter();
@@ -31,24 +37,31 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.numberOfRows = this.defaultNumberOfRows;
-    this.paginate();
+    this.paginate(1);
   }
 
   ngOnChanges(changes) { 
+    // Select the first page when the data changes
     if (changes.totalRecords && !changes.totalRecords.firstChange) {
-      this.paginate();
+      this.paginate(1);
+    }
+
+    // Handles when page needs to eb changed from parent component
+    if (changes.pageNumber && changes.pageNumber.currentValue && changes.pageNumber.currentValue !== this.currentPage) {
+      this.paginate(changes.pageNumber.currentValue);
     }
   }
 
-  paginate() {
+  paginate(page: number) {
     this.totalPages = this.getTotalPages();
-    this.changePage(1);
+    this.changePage(page);
   }
 
   isStepperDisabled(selectedPage: number): boolean {
     return this.currentPage === selectedPage ? true : false;
   }
 
+  // Determines the numbers to show in pagination
   changePage(page: number): void {
     this.currentPage = page;
     this.pageButtons = [];
@@ -68,6 +81,7 @@ export class PaginationComponent implements OnInit, OnChanges {
       }
     }
 
+    // Sends the current page and number of rows back to table to let the table handle determining the rows
     this.pageData.emit({
       currentPage: this.currentPage,
       numberOfRows: this.numberOfRows,
