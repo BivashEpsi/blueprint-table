@@ -23,7 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadService = this.tableDataService.get_cuData().subscribe(res => {
-      console.log(res);
       this.data = res.body.customerData.data;
       this.isDataLoading = false;
     });
