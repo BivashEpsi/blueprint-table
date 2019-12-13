@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TabledataService {
-  url = 'http://localhost:3000';
+  url = 'https://raw.githubusercontent.com/epsilon-ux/blueprint-table/master/tableData.json';
   constructor(private https: HttpClient) { }
 
   get_cuData(): Observable<HttpResponse<any>> {
-    return this.https.get<HttpResponse<any>>(this.url + '/customerData', { observe: 'response' })
+    return this.https.get<HttpResponse<any>>(this.url, { observe: 'response' });
   }
 
 }
