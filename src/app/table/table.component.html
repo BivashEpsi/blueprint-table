@@ -9,14 +9,14 @@
       <table class="table">
         <thead>
           <tr>
-            <ng-container *ngIf="columnValue">
+            <ng-container *ngIf="columnInfo">
               <th
                 scope="col"
-                *ngFor="let column of columnValue; let i = index"
+                *ngFor="let column of columnInfo; let i = index"
                 [attr.aria-sort]="isSortActive ? getAriaSortOrder(i) : 'null'"
               >
                 <button class="th-sortable" (click)="applySort(column.key, i)">
-                  {{ column.value }}
+                  {{ column.displayName }}
                 </button>
               </th>
             </ng-container>
