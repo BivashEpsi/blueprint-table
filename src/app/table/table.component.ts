@@ -8,7 +8,7 @@ import { Component, OnInit, OnChanges, Input } from "@angular/core";
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() data = [];
-  @Input() columnValue: any;
+  @Input() columnInfo: any;
   @Input() isTableLoading = true;
 
   // Data
@@ -74,7 +74,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   getAriaSortOrder(rowIndex: number): string {
-    const columnIndex = this.columnValue.findIndex(
+    const columnIndex = this.columnInfo.findIndex(
       (item: { key: string }, index: any) => {
         if (item.key === this.defaultSortColName) {
           return index;
@@ -118,7 +118,7 @@ export class TableComponent implements OnInit, OnChanges {
   search(query) {
     this.filteredData = this.data
       .filter(d => {
-        for (let col of this.columnValue) {
+        for (let col of this.columnInfo) {
           if (d[col.key] && String(d[col.key]).includes(query)) {
             return true;
           }

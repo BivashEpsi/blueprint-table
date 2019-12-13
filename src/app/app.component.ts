@@ -12,11 +12,11 @@ export class AppComponent implements OnInit, OnDestroy {
   loadService: any;
   isDataLoading = true;
 
-  columnValue = [
-    { key: "date", value: "Date" },
-    { key: "amount", value: "Amount" },
-    { key: "phone", value: "Phone" },
-    { key: "description", value: "Description" }
+  columnInfo = [
+    { key: "date", displayName: "Date" },
+    { key: "amount", displayName: "Amount" },
+    { key: "phone", displayName: "Phone" },
+    { key: "description", displayName: "Description" }
   ];
 
   constructor(private tableDataService: TabledataService) {}
