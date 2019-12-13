@@ -4,7 +4,7 @@
             {{ totalRecords }} results
         </span>
         <label for="numberOfRows" class="sr-only">Number of Rows per Page</label>
-        <select id="numberOfRows" class="page-select-dropdown" (change)="paginate()"
+        <select id="numberOfRows" class="page-select-dropdown" (change)="paginate(currentPage)"
             [(ngModel)]="numberOfRows">
             <option *ngFor="let item of numberOfRowsOptions" [ngValue]="item">
                 {{item}} rows
