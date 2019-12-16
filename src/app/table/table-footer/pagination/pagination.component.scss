@@ -1,5 +1,56 @@
 @import "../../../../styles/_global-variables";
 
-.current-page.active {
-	background: $haze;
+.pagination-wrapper
+{
+    display: flex;
+    align-items: center;
+}
+
+.pagination-records
+{
+    margin-right: 10px;
+    color: $font-color-secondary;
+}
+
+.pagination-buttons
+{
+    margin: 0 0 0 20px;
+}
+
+.btn-pager
+{
+    border: 0;
+    padding: 1px 6px 2px;
+    background: transparent;
+
+    &:hover:not(.active):not([disabled])
+    {
+        background: $accent-color-primary-hover;
+        color: $coconut;
+    }
+}
+
+.btn-pager-icon
+{
+    color: $accent-color-primary;
+    font-size: $font-size-display2;
+
+    &:disabled
+    {
+        color: $font-color-secondary;
+    }
+}
+
+.btn-pager-number
+{
+    &:hover:not(.active):not([disabled])
+    {
+        font-weight: $font-weight-bold;
+    }
+
+    &.active
+    {
+        background: $haze;
+        font-weight: $font-weight-bold;
+    }
 }
