@@ -7,3 +7,6 @@
     (pageData)="emitPageData($event)"
 >
 </app-pagination>
+<app-column-selector [showColumnSelector]="showColumnSelector" [options]="columnInfo"
+  [defaultSortColName]="defaultSortColName" (selectChange)="change($event)">
+</app-column-selector>

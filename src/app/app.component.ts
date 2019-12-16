@@ -13,10 +13,10 @@ export class AppComponent implements OnInit, OnDestroy {
   isDataLoading = true;
 
   columnInfo = [
-    { key: "date", displayName: "Date" },
-    { key: "amount", displayName: "Amount" },
-    { key: "phone", displayName: "Phone" },
-    { key: "description", displayName: "Description" }
+    { key: "date", displayName: "Date", checked: true },
+    { key: "amount", displayName: "Amount", checked: true },
+    { key: "phone", displayName: "Phone", checked: true },
+    { key: "description", displayName: "Description", checked: true }
   ];
 
   constructor(private tableDataService: TabledataService) {}

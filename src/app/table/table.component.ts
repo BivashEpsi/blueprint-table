@@ -30,6 +30,9 @@ export class TableComponent implements OnInit, OnChanges {
   pageBuffer = 1;
   defaultNumberOfRows = 10;
 
+  //column selector
+  showColumnSelector = true;
+
   constructor() {}
 
   ngOnInit() {}

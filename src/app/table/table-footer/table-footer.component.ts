@@ -12,12 +12,21 @@ export class TableFooterComponent implements OnInit {
 
   @Input()
   defaultNumberOfRows: number;
-  
+
   @Input()
   pageBuffer: number;
 
   @Input()
   pageNumber: number;
+
+  @Input()
+  showColumnSelector = false;
+
+  @Input()
+  columnInfo: any[];
+
+  @Input()
+  defaultSortColName: string;
 
   @Output()
   pageData = new EventEmitter();
@@ -29,5 +38,8 @@ export class TableFooterComponent implements OnInit {
 
   emitPageData(event) {
     this.pageData.emit(event);
+  }
+
+  change($event: any) {
   }
 }

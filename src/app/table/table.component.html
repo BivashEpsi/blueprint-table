@@ -12,6 +12,7 @@
             <ng-container *ngIf="columnInfo">
               <th
                 scope="col"
+                [hidden]="!column.checked"
                 *ngFor="let column of columnInfo; let i = index"
                 [attr.aria-sort]="isSortActive ? getAriaSortOrder(i) : 'null'"
               >
@@ -33,10 +34,7 @@
         <ng-template #loaded>
           <tbody *ngIf="tableData.length > 0; else noColumnData">
             <tr *ngFor="let dataList of tableData">
-              <td>{{ dataList.date }}</td>
-              <td>{{ dataList.amount }}</td>
-              <td>{{ dataList.phone }}</td>
-              <td>{{ dataList.description }}</td>
+              <td class="td" [hidden]="!column.checked" *ngFor="let column of columnInfo">{{dataList[column.key]}}</td>
             </tr>
           </tbody>
         </ng-template>
@@ -59,6 +57,9 @@
     [defaultNumberOfRows]="defaultNumberOfRows"
     [pageBuffer]="pageBuffer"
     [pageNumber]="currentPage"
+    [showColumnSelector]="showColumnSelector"
+    [columnInfo]="columnInfo"
+    [defaultSortColName]="defaultSortColName"
     (pageData)="paginate($event)"
   ></app-table-footer>
 </div>
