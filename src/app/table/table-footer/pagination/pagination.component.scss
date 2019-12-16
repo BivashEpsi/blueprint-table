@@ -14,13 +14,16 @@
 
 .pagination-buttons
 {
+    display: flex;
+    align-items: stretch;
     margin: 0 0 0 20px;
 }
 
 .btn-pager
 {
+    min-width: 20px;
+    min-height: 25px;
     border: 0;
-    padding: 1px 6px 2px;
     background: transparent;
 
     &:hover:not(.active):not([disabled])
@@ -34,6 +37,11 @@
 {
     color: $accent-color-primary;
     font-size: $font-size-display2;
+
+    & i
+    {
+        transform: translateY(-1px);
+    }
 
     &:disabled
     {
