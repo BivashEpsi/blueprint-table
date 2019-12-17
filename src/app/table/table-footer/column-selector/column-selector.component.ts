@@ -17,7 +17,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnSelectorComponent implements AfterViewChecked {
-  @Input() options = [];
+  @Input() dropdownOptions = [];
   @Input() defaultSortColName: string;
   @Input() showColumnSelector = false;
   @Output() selectChange = new EventEmitter();
@@ -30,7 +30,7 @@ export class ColumnSelectorComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     this.getColumnSelectedCount();
-    this.columnSelectorDropdown.writeValue(`Showing ${this.selectedColumns.length} out of ${this.options.length}`);
+    this.columnSelectorDropdown.writeValue(`Showing ${this.selectedColumns.length} out of ${this.dropdownOptions.length}`);
     this.cdr.detectChanges();
   }
 
@@ -40,8 +40,8 @@ export class ColumnSelectorComponent implements AfterViewChecked {
   }
 
   getColumnSelectedCount() {
-    if (Array.isArray(this.options) && this.options.length) {
-      this.selectedColumns = this.options.filter((column) => {
+    if (Array.isArray(this.dropdownOptions) && this.dropdownOptions.length) {
+      this.selectedColumns = this.dropdownOptions.filter((column) => {
         return column.checked === true;
       });
     }

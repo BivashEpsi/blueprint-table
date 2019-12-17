@@ -1,3 +1,9 @@
+@import '../../../../styles/global-variables';
 label {
   display: inline;
+}
+
+.default-column::after {
+  content: ' (Default)';
+  color: $storm;
 }
