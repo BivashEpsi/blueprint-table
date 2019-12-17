@@ -4,7 +4,7 @@
   </span>
   <ng-select #columnSelectorDropdown [items]="options" [clearable]="false" [closeOnSelect]="false">
     <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-      <input type="checkbox" *ngIf="item.key !== defaultSortColName" [checked]="item.checked" (change)="onColumnChecked($event, item)" [id]="item.key"
+      <input type="checkbox" [disabled]="item.key === defaultSortColName" [checked]="item.checked" (change)="onColumnChecked($event, item)" [id]="item.key"
         [name]="item.displayName">
       <label [for]="item.key">{{item.displayName}}</label>
     </ng-template>

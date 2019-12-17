@@ -1,9 +1,9 @@
-import { Component, OnInit, OnChanges, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
 @Component({
-  selector: "bp-table",
-  templateUrl: "./table.component.html",
-  styleUrls: ["./table.component.scss"]
+  selector: 'bp-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnChanges {
 
@@ -16,9 +16,10 @@ export class TableComponent implements OnInit, OnChanges {
   tableData = [];
 
   // Sorting
-  defaultSortColName = "amount";
+  defaultSortColName = 'amount';
+  sortColName = 'amount';
   colIndex: number;
-  sortOrder = "ascending";
+  sortOrder = 'ascending';
   isSortActive = true;
 
   // Pagination
@@ -61,7 +62,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   sortByKeyAsc(array, key) {
-    return array.sort(function(a, b) {
+    return array.sort((a, b) => {
       const x = a[key];
       const y = b[key];
       return x < y ? -1 : 1;
@@ -69,7 +70,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   sortByKeyDesc(array, key) {
-    return array.sort(function(a, b) {
+    return array.sort((a, b) => {
       const x = a[key];
       const y = b[key];
       return x > y ? -1 : 1;
@@ -79,13 +80,13 @@ export class TableComponent implements OnInit, OnChanges {
   getAriaSortOrder(rowIndex: number): string {
     const columnIndex = this.columnInfo.findIndex(
       (item: { key: string }, index: any) => {
-        if (item.key === this.defaultSortColName) {
+        if (item.key === this.sortColName) {
           return index;
         }
       }
     );
     if (columnIndex === rowIndex) {
-      return "ascending";
+      return 'ascending';
     }
     if (this.colIndex === rowIndex) {
       this.isSortActive = true;
@@ -98,20 +99,20 @@ export class TableComponent implements OnInit, OnChanges {
   applySort(colHeader: string, colIndex: number) {
     this.colIndex = colIndex;
     if (
-      (this.defaultSortColName !== colHeader &&
-        typeof this.sortOrder !== "undefined") ||
-      this.sortOrder === "" ||
-      this.sortOrder === "descending"
+      (this.sortColName !== colHeader &&
+        typeof this.sortOrder !== undefined) ||
+      this.sortOrder === '' ||
+      this.sortOrder === 'descending'
     ) {
       this.ascSort(colHeader);
       this.isSortActive = true;
-      this.sortOrder = "ascending";
-      this.defaultSortColName = colHeader;
+      this.sortOrder = 'ascending';
+      this.sortColName = colHeader;
     } else {
       this.descSort(colHeader);
       this.isSortActive = true;
-      this.sortOrder = "descending";
-      this.defaultSortColName = "";
+      this.sortOrder = 'descending';
+      this.sortColName = '';
     }
     this.paginate({currentPage: this.currentPage, numberOfRows: this.numberOfRows});
   }
@@ -121,15 +122,15 @@ export class TableComponent implements OnInit, OnChanges {
   search(query) {
     this.filteredData = this.data
       .filter(d => {
-        for (let col of this.columnInfo) {
+        for (const col of this.columnInfo) {
           if (d[col.key] && String(d[col.key]).includes(query)) {
             return true;
           }
         }
         return false;
       });
-      this.totalRecords = this.filteredData.length;
-      this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
+    this.totalRecords = this.filteredData.length;
+    this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
   }
 
   clearSearch() {
