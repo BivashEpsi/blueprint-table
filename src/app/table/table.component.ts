@@ -30,7 +30,7 @@ export class TableComponent implements OnInit, OnChanges {
   pageBuffer = 1;
   defaultNumberOfRows = 10;
 
-  //column selector
+  // Column selector
   showColumnSelector = true;
 
   constructor() {}

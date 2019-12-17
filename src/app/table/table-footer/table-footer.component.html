@@ -1,12 +1,11 @@
+<app-column-selector [showColumnSelector]="showColumnSelector" [options]="columnInfo"
+    [defaultSortColName]="defaultSortColName" (selectChange)="change($event)">
+</app-column-selector>
 <app-pagination
     class="col-auto ml-auto"
     [totalRecords]="totalRecords"
     [defaultNumberOfRows]="defaultNumberOfRows"
     [pageBuffer]="pageBuffer"
     [pageNumber]="pageNumber"
-    (pageData)="emitPageData($event)"
->
+    (pageData)="emitPageData($event)">
 </app-pagination>
-<app-column-selector [showColumnSelector]="showColumnSelector" [options]="columnInfo"
-  [defaultSortColName]="defaultSortColName" (selectChange)="change($event)">
-</app-column-selector>
