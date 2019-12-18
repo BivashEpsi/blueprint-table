@@ -1,36 +1,28 @@
-<div class="table-pagination">
-    <div class="tbl-divider">
-        <span class="tbl-footer-label-right">
-            {{ totalRecords }} results
-        </span>
-        <label for="numberOfRows" class="sr-only">Number of Rows per Page</label>
-        <select id="numberOfRows" class="page-select-dropdown" (change)="paginate(currentPage)"
-            [(ngModel)]="numberOfRows">
-            <option *ngFor="let item of numberOfRowsOptions" [ngValue]="item">
-                {{item}} rows
-            </option>
-        </select>
-        <div class="pagination">
-            <button aria-label="First page" [disabled]="isStepperDisabled(1)"
-                (click)="changePage(1)">
-                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-            </button>
-            <button aria-label="Previous page" [disabled]="isStepperDisabled(1)"
-                (click)="changePage(currentPage - 1)">
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-            </button>
-            <button class="current-page" *ngFor="let page of pageButtons" [class.active]="page === currentPage"
-                [attr.aria-label]="( page === currentPage ) ? currentPage : null" (click)="changePage(page)">
-                {{ page }}
-            </button>
-            <button aria-label="Next page" [disabled]="isStepperDisabled(totalPages)"
-                (click)="changePage(currentPage + 1)">
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </button>
-            <button aria-label="Last page" [disabled]="isStepperDisabled(totalPages)"
-                (click)="changePage(totalPages)">
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            </button>
-        </div>
+<div class="pagination-wrapper">
+    <span class="pagination-records">
+        <span class="font-weight-semi-bold">{{totalRecords}}</span> results
+    </span>
+    <label for="numberOfRows" class="sr-only">Number of Rows per Page</label>
+    <select id="numberOfRows" class="page-select-dropdown" (change)="paginate(currentPage)" [(ngModel)]="numberOfRows">
+        <option *ngFor="let item of numberOfRowsOptions" [ngValue]="item">
+            {{item}} rows
+        </option>
+    </select>
+    <div class="pagination-buttons">
+        <button class="btn-pager btn-pager-icon" aria-label="First page" [disabled]="isStepperDisabled(1)" (click)="changePage(1)">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        </button>
+        <button class="btn-pager btn-pager-icon" aria-label="Previous page" [disabled]="isStepperDisabled(1)" (click)="changePage(currentPage - 1)">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </button>
+        <button *ngFor="let page of pageButtons" class="btn-pager btn-pager-number" [class.active]="page === currentPage" [attr.aria-label]="( page === currentPage ) ? currentPage : null" (click)="changePage(page)">
+            {{page}}
+        </button>
+        <button class="btn-pager btn-pager-icon" aria-label="Next page" [disabled]="isStepperDisabled(totalPages)" (click)="changePage(currentPage + 1)">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </button>
+        <button class="btn-pager btn-pager-icon" aria-label="Last page" [disabled]="isStepperDisabled(totalPages)" (click)="changePage(totalPages)">
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </button>
     </div>
 </div>

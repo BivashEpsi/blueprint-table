@@ -1,4 +1,5 @@
 @import "./styles/_global-variables";
+@import "./styles/typography.scss";
 @import "./styles/buttons-links.scss";
 @import "./styles/forms.scss";
 @import "~@ng-select/ng-select/themes/default.theme.css";
@@ -11,7 +12,8 @@ body
     font-weight: $font-weight-regular;
 }
 
-:focus
+:focus,
+button:focus
 {
     outline: none;
     box-shadow: $box-shadow-focus-default;
@@ -19,10 +21,10 @@ body
 
 .icon-left
 {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
 .icon-right
 {
-  margin-left: 5px;
+    margin-left: 5px;
 }
