@@ -1,5 +1,5 @@
 <label for="displayDensity">Display Density:</label>
-<select id="display-density" name="displayDensity" (change)="setDisplayDensity($event)" [(ngModel)]="displayDensity">
+<select id="displayDensity" name="displayDensity" (change)="setDisplayDensity($event.target.value)" [(ngModel)]="displayDensity">
     <option *ngFor="let item of displayDensityOptions" [value]="item.selectedValue">
         {{item.selectedValue}}
     </option>

@@ -6,188 +6,90 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
   styleUrls: ['./pagination.component.scss']
 })
 
+
+// This component only handles the actual pagination part of the table,
+// the actual rows and rendering is handled by the table component
 export class PaginationComponent implements OnInit, OnChanges {
 
   @Input()
   totalRecords: number;
 
-  @Output()
-  itemsStartAndLimit = new EventEmitter();
-
   @Input()
   defaultNumberOfRows: number;
 
   @Input()
-  tableDataStartIndex: number;
+  pageBuffer = 1;
 
   @Input()
-  paginationListToShow: number;
-
-  @Input()
-  showCurrentPage: number;
-
-  pages = [];
-  currentPage: number;
-  startPoint: number;
-  numberOfPagesToShow: number;
-  pageDataStartIndex: number;
-  isItPageSelectDropdown = false;
-
-  rowData = [
-    { id: 1, rowValue: 10 },
-    { id: 2, rowValue: 25 },
-    { id: 3, rowValue: 50 },
-    { id: 4, rowValue: 100 }
-  ];
+  pageNumber: number;
+  
+  @Output()
+  pageData = new EventEmitter();
+  
+  totalPages: number;
+  currentPage = 1;
+  pageButtons = [];
+  
+  numberOfRows = 10;
+  numberOfRowsOptions = [10, 25, 50, 100];
 
   constructor() { }
 
   ngOnInit() {
-    this.setRowLimit();
-    this.changePage(this.currentPage);
+    this.numberOfRows = this.defaultNumberOfRows;
+    this.paginate(1);
   }
 
-  ngOnChanges() {
-    this.setTableDataStartPoint(this.tableDataStartIndex);
-  }
-
-  private setDisabledLink(selectedPage: number): boolean {
-    if (this.currentPage === selectedPage) {
-      return true;
+  ngOnChanges(changes) { 
+    // Select the first page when the data changes
+    if (changes.totalRecords && !changes.totalRecords.firstChange) {
+      this.paginate(1);
     }
-    return false;
+
+    // Handles when page needs to eb changed from parent component
+    if (changes.pageNumber && changes.pageNumber.currentValue && changes.pageNumber.currentValue !== this.currentPage) {
+      this.paginate(changes.pageNumber.currentValue);
+    }
   }
 
-  /**
-   * Below function is used to generate pages.
-   */
+  paginate(page: number) {
+    this.totalPages = this.getTotalPages();
+    this.changePage(page);
+  }
 
-  setRowLimit() {
-    this.isItPageSelectDropdown = true;
-    this.currentPage = this.showCurrentPage;
-    this.numberOfPagesToShow = this.paginationListToShow;
-    if (this.getTotalNumberOfPages() !== this.numberOfPagesToShow && true === this.isItPageSelectDropdown) {
-      this.numberOfPagesToShow = (this.getTotalNumberOfPages() > this.numberOfPagesToShow) ?
-        this.numberOfPagesToShow : this.getTotalNumberOfPages();
+  isStepperDisabled(selectedPage: number): boolean {
+    return this.currentPage === selectedPage ? true : false;
+  }
+
+  // Determines the numbers to show in pagination
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.pageButtons = [];
+
+    if (this.currentPage - this.pageBuffer <= 1) {
+      for (let i = 1; this.pageButtons.length <= this.pageBuffer * 2 && i <= this.totalPages; i++) {
+        this.pageButtons.push(i);
+      }
+    } else if (this.currentPage + this.pageBuffer >= this.totalPages) {
+      for (let i = this.totalPages; this.pageButtons.length <= this.pageBuffer * 2 && i >= 1; i--) {
+        this.pageButtons.push(i);
+      }
+      this.pageButtons.reverse();
     } else {
-      this.numberOfPagesToShow = this.numberOfPagesToShow;
-    }
-    this.changePage(this.currentPage);
-    this.setTableDataStartPoint(this.tableDataStartIndex);
-    this.numberOfPagesToShow = (this.numberOfPagesToShow % this.getTotalNumberOfPages() === 1) ?
-      this.getTotalNumberOfPages() : this.numberOfPagesToShow;
-    this.currentPage = this.getStartIndex();
-    this.changePage(this.currentPage);
-  }
-
-  /**
-   * Below function is used for to get previous page number.
-   */
-
-  private previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      if (this.currentPage < this.getTotalNumberOfPages() && false === this.pages.includes(1)) {
-        this.pages.pop();
-        this.pages.unshift(this.pages[0] - 1);
-      }
-      this.changePage(this.currentPage);
-    }
-  }
-
-  /**
-   * Below function is used for to get next page number.
-   */
-
-  private nextPage(): void {
-    this.currentPage++;
-    if (this.currentPage <= this.getTotalNumberOfPages() && false === this.pages.includes(this.getTotalNumberOfPages())) {
-      this.pages.shift();
-      const pageNo = this.pages[this.pages.length - 1] + 1;
-      this.pages.push(pageNo);
-    }
-    this.changePage(this.currentPage);
-  }
-
-  /**
-   *
-   * @param pageNumber select page numbers
-   */
-
-  private changePage(selectedCurrentPage: number): void {
-    if (selectedCurrentPage === 1) { this.currentPage = selectedCurrentPage; this.pages = []; }
-
-    if (this.pages.length < this.numberOfPagesToShow) {
-      for (let i = this.currentPage; i <= this.numberOfPagesToShow; i++) {
-        this.pages.push(i);
-      }
-    } else {
-      if (selectedCurrentPage === this.getTotalNumberOfPages()) {
-        this.currentPage = this.getTotalNumberOfPages();
-        this.pages = [];
-        let i = this.getTotalNumberOfPages() - (this.numberOfPagesToShow - 1);
-        for (; i <= this.getTotalNumberOfPages(); i++) {
-          this.pages.push(i);
-        }
-      }
-
-      if (this.currentPage > this.numberOfPagesToShow && this.currentPage < this.getTotalNumberOfPages()
-        && true === this.isItPageSelectDropdown) {
-        this.pages = [];
-        const tempPageNumbers = (this.currentPage + 2 < this.getTotalNumberOfPages()) ?
-          this.currentPage + 2 : this.getTotalNumberOfPages();
-        for (let i = this.currentPage; i <= tempPageNumbers; i++) {
-          this.pages.push(i);
-        }
-        this.isItPageSelectDropdown = false;
-      } else {
-        this.isItPageSelectDropdown = false;
+      for (let i = this.currentPage - this.pageBuffer; this.pageButtons.length <= this.pageBuffer * 2 && i <= this.totalPages; i++) {
+        this.pageButtons.push(i);
       }
     }
-    this.currentPage = selectedCurrentPage;
-    this.getData(this.currentPage, this.defaultNumberOfRows);
+
+    // Sends the current page and number of rows back to table to let the table handle determining the rows
+    this.pageData.emit({
+      currentPage: this.currentPage,
+      numberOfRows: this.numberOfRows,
+    });
   }
 
-  /**
-   * Below function is used to generate number of pages as per total count.
-   */
-
-  private getTotalNumberOfPages(): number {
-    return Math.trunc(this.totalRecords / this.defaultNumberOfRows) + 1;
-  }
-
-  /**
-   * Below function is used to get data from backend or array of object.
-   * @param pageNumber
-   * @param limit
-   */
-
-  private getData(pageNumber: number, limit: number): void {
-    this.startPoint = (pageNumber - 1) * limit;
-    // Below condition will get executed when there are more records than start point for the pagination
-    this.emitStartAndLimit();
-  }
-
-  /**
-   * Below function is used to emit the start point of chunk of data and count of records page need
-   */
-
-  private emitStartAndLimit(): void {
-    if (this.totalRecords > this.startPoint) {
-      this.itemsStartAndLimit.emit({ startPoint: this.startPoint, pageLimit: this.startPoint + this.defaultNumberOfRows });
-    }
-  }
-
-  /**
-   * Below function is used start point of selected page number from pagination list
-   */
-
-  private setTableDataStartPoint(startPoint: number) {
-    this.pageDataStartIndex = Math.trunc((startPoint + 1) / this.defaultNumberOfRows) + 1;
-  }
-
-  private getStartIndex(): number {
-    return this.pageDataStartIndex;
+  getTotalPages() {
+    return Math.floor(this.totalRecords / this.numberOfRows) + 1;
   }
 
 }

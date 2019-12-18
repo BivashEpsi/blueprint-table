@@ -1,72 +1,64 @@
 @import "../../../../styles/_global-variables";
 
-.table-pagination 
+.pagination-wrapper
 {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	padding: 15px 20px 15px;
-	position: sticky;
+    display: flex;
+    align-items: center;
+}
 
-	.tbl-divider
-	{
-		position: relative;
+.pagination-records
+{
+    margin-right: 10px;
+    color: $font-color-secondary;
+}
 
-		.tbl-footer-label-right
-		{
-			color: $storm;
-			padding: 8px 10px;
-		}
-		
-		.page-select-dropdown
-		{
-			color: $storm;
-			font-size: 12px;
-		}
+.pagination-buttons
+{
+    display: flex;
+    align-items: stretch;
+    margin: 0 0 0 20px;
+}
 
-		.pagination 
-		{
-			display: inline-block;
-			cursor: pointer;
+.btn-pager
+{
+    min-width: 20px;
+    min-height: 25px;
+    border: 0;
+    background: transparent;
 
-			button.current-page 
-			{
-				display: inline;
-				color: $midnight;
-				padding: 8px 8px;
-				background: none;
-				border: none;
-				
-				&:hover 
-				{
-					&:not(.active) 
-					{
-						background-color: $haze;
-						color: $midnight;
-					}
-				}
-			}
+    &:hover:not(.active):not([disabled])
+    {
+        background: $accent-color-primary-hover;
+        color: $coconut;
+    }
+}
 
-			button.current-page.active 
-			{
-				background-color: $haze;
-				color: $midnight;
-			}
+.btn-pager-icon
+{
+    color: $accent-color-primary;
+    font-size: $font-size-display2;
 
-			button.remove-btn-att 
-			{
-				background: none;
-				border: none;
-				color : $ultramarine;
-				cursor: pointer;
-			}
+    & i
+    {
+        transform: translateY(-1px);
+    }
 
-			button.remove-btn-att:disabled 
-			{
-				color: $storm;
-				cursor: not-allowed;
-				text-decoration: underline;
-			}
-		}
-	}
+    &:disabled
+    {
+        color: $font-color-secondary;
+    }
+}
+
+.btn-pager-number
+{
+    &:hover:not(.active):not([disabled])
+    {
+        font-weight: $font-weight-bold;
+    }
+
+    &.active
+    {
+        background: $haze;
+        font-weight: $font-weight-bold;
+    }
 }

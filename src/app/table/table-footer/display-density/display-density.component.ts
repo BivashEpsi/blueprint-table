@@ -22,8 +22,8 @@ export class DisplayDensityComponent implements OnInit {
     this.displayDensity = ( !localStorage.getItem('selectedView') ) ? this.displayDensity : localStorage.getItem('selectedView');
   }
 
-  setDisplayDensity(event: { target: { value: any; }; }) {
-    this.displayDensityEmitter.emit(event);
+  setDisplayDensity(selectedDensity) {
+    this.displayDensityEmitter.emit( selectedDensity );
   }
 
 }

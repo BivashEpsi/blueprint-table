@@ -14,16 +14,13 @@ export class TableFooterComponent implements OnInit {
   defaultNumberOfRows: number;
 
   @Input()
-  tableDataStartIndex: number;
+  pageBuffer: number;
 
   @Input()
-  showCurrentPage: number;
-
-  @Input()
-  paginationListToShow: number;
+  pageNumber: number;
 
   @Output()
-  getPageCount = new EventEmitter();
+  pageData = new EventEmitter();
 
   @Output()
   displayDensityEmitter = new EventEmitter();
@@ -33,8 +30,8 @@ export class TableFooterComponent implements OnInit {
   ngOnInit() {
   }
 
-  getCurrentPageCount(event: number) {
-    this.getPageCount.emit(event);
+  emitPageData(event) {
+    this.pageData.emit(event);
   }
 
   setDisplayDensity(event: { target: { value: any; }; }) {

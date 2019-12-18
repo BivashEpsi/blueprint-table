@@ -3,6 +3,7 @@
 .table
 {
     width: 100%;
+    border-collapse: separate;
     border-spacing: 0;
     border: 1px solid $border-color-secondary;
 
@@ -91,6 +92,7 @@
             th,
             td
             {
+                border: 0;
                 padding: 11px 15px 12px;
                 vertical-align: middle;
             }

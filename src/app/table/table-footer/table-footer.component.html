@@ -2,13 +2,11 @@
 </app-display-density>
 
 <app-pagination
-    (itemsStartAndLimit)="getCurrentPageCount($event)"
+    class="col-auto ml-auto"
     [totalRecords]="totalRecords"
     [defaultNumberOfRows]="defaultNumberOfRows"
-    [tableDataStartIndex]="tableDataStartIndex"
-    [paginationListToShow]="paginationListToShow"
-    [showCurrentPage]="showCurrentPage"
- >
+    [pageBuffer]="pageBuffer"
+    [pageNumber]="pageNumber"
+    (pageData)="emitPageData($event)"
+>
 </app-pagination>
-
-

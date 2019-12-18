@@ -1,62 +1,66 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { TabledataService } from "../service/tabledata.service";
+import { Component, OnInit, OnChanges, Input } from "@angular/core";
 
 @Component({
-  selector: "app-table",
+  selector: "bp-table",
   templateUrl: "./table.component.html",
   styleUrls: ["./table.component.scss"]
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit, OnChanges {
+
+  @Input() data = [];
+  @Input() columnInfo: any;
+  @Input() isTableLoading = true;
+
+  // Data
+  filteredData = [];
   tableData = [];
-  allData = [];
-  columnValue: any;
-  loadService: any;
+
+  // Sorting
   defaultSortColName = "amount";
   colIndex: number;
   sortOrder = "ascending";
   isSortActive = true;
-  loadingTableData = true;
+
+  // Pagination
+  startIndex: number;
+  endIndex: number;
   totalRecords: number;
-  setPageLimit: number;
-  setPageStartPoint: number;
+  numberOfRows;
+  currentPage = 1;
+  pageBuffer = 1;
   defaultNumberOfRows = 10;
-  paginationListToShow = 3;
-  showCurrentPage = 1;
+
+  // displayDensity
   densityClassName: string;
 
-  constructor(private tableDataService: TabledataService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.columnValue = [
-      { key: "date", value: "Date" },
-      { key: "amount", value: "Amount" },
-      { key: "phone", value: "Phone" },
-      { key: "description", value: "Description" }
-    ];
-    this.showData();
+    const displayDensityName = localStorage.getItem('selectedView') || undefined;
+    this.setDisplayDensity(displayDensityName);
   }
 
-  showData() {
-    this.loadService = this.tableDataService.get_cuData().subscribe(res => {
-      this.tableData = res.body.data;
-      this.allData = res.body.data;
-      this.totalRecords = res.body.totalCount;
-      this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
+  ngOnChanges(changes) {
+    if (changes.isTableLoading && changes.isTableLoading.currentValue === false && this.data.length > 0) {
+      this.filteredData = [...this.data];
+      this.totalRecords = this.data.length;
+      this.paginate({currentPage: this.currentPage, numberOfRows: this.defaultNumberOfRows});
       this.defaultSort();
-      this.loadingTableData = false;
-    });
+    }
   }
+
+  // --------------- Sorting ---------------
 
   defaultSort() {
     this.ascSort(this.defaultSortColName);
   }
 
   ascSort(colHeader: string) {
-    this.sortByKeyAsc(this.tableData, colHeader);
+    this.sortByKeyAsc(this.filteredData, colHeader);
   }
 
   descSort(colHeader: string) {
-    this.sortByKeyDesc(this.tableData, colHeader);
+    this.sortByKeyDesc(this.filteredData, colHeader);
   }
 
   sortByKeyAsc(array, key) {
@@ -76,7 +80,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   getAriaSortOrder(rowIndex: number): string {
-    const columnIndex = this.columnValue.findIndex(
+    const columnIndex = this.columnInfo.findIndex(
       (item: { key: string }, index: any) => {
         if (item.key === this.defaultSortColName) {
           return index;
@@ -112,59 +116,59 @@ export class TableComponent implements OnInit, OnDestroy {
       this.sortOrder = "descending";
       this.defaultSortColName = "";
     }
+    this.paginate({currentPage: this.currentPage, numberOfRows: this.numberOfRows});
   }
 
-  /**
-   * This function emit number of page limit and starting point of records
-   * @param : event it is a object
-   */
-
-  getPageCount(event: { startPoint: any; pageLimit: any }) {
-    if (this.tableData.length > 0) {
-      this.setPageLimit = event.pageLimit;
-      this.setPageStartPoint = event.startPoint;
-      this.tableData = this.allData.slice(
-        this.setPageStartPoint,
-        this.setPageLimit
-      );
-    }
-  }
+  // --------------- Searching ---------------
 
   search(query) {
-    this.tableData = this.allData
+    this.filteredData = this.data
       .filter(d => {
-        for (let col of this.columnValue) {
+        for (let col of this.columnInfo) {
           if (d[col.key] && String(d[col.key]).includes(query)) {
             return true;
           }
         }
         return false;
-      })
-      .slice(this.setPageStartPoint, this.setPageLimit);
+      });
+      this.totalRecords = this.filteredData.length;
+      this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
   }
 
   clearSearch() {
-    this.tableData = [...this.allData];
-    this.getPageCount({ startPoint: 0, pageLimit: this.defaultNumberOfRows });
+    this.filteredData = [...this.data];
+    this.totalRecords = this.filteredData.length;
+    this.paginate({currentPage: 1, numberOfRows: this.numberOfRows});
     this.defaultSort();
   }
 
-  setDisplayDensityValue(densityName: { target: { value: string; }; }) {
-    if (densityName === undefined) { return null; }
-    const selectedDensityValue = densityName.target.value;
+  // --------------- Pagination ---------------
+
+  paginate(pageData: {
+    currentPage: number;
+    numberOfRows: number;
+  }) {
+    if (pageData.numberOfRows !== this.numberOfRows) {
+      this.currentPage = Math.floor(this.startIndex / pageData.numberOfRows) + 1 || 1;
+    } else {
+      this.currentPage = pageData.currentPage;
+    }
+    this.numberOfRows = pageData.numberOfRows;
+    this.startIndex = (this.currentPage - 1) * this.numberOfRows;
+    this.endIndex = this.startIndex + this.numberOfRows;
+    this.tableData = this.filteredData.slice(this.startIndex, this.endIndex);
+  }
+
+   // --------------- DisplayDensity ---------------
+
+  setDisplayDensity(densityName) {
+    if (densityName === undefined) { this.densityClassName = null; }
+    const selectedDensityValue = densityName;
     if (selectedDensityValue === 'Comfortable') {
       this.densityClassName = null;
     } else {
       this.densityClassName = 'table-compact';
     }
     localStorage.setItem('selectedView', selectedDensityValue);
-  }
-
-  getDisplayDensityValue() {
-    return this.densityClassName;
-  }
-
-  ngOnDestroy() {
-    this.loadService.unsubscribe();
   }
 }

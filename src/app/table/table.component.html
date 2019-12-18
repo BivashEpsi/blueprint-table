@@ -1,55 +1,64 @@
-<bp-search (search)="search($event)" (clearSearch)="clearSearch()"></bp-search>
-<table class="table" [ngClass]="getDisplayDensityValue()">
-  <thead>
-    <tr>
-      <ng-container *ngIf="columnValue">
-        <th
-          scope="col"
-          *ngFor="let column of columnValue; let i = index"
-          [attr.aria-sort]="isSortActive ? getAriaSortOrder(i) : 'null'"
-        >
-          <button class="th-sortable" (click)="applySort(column.key, i)">
-            {{ column.value }}
-          </button>
-        </th>
-      </ng-container>
-    </tr>
-  </thead>
-  <tbody *ngIf="loadingTableData; else loaded">
-    <tr class="table-empty">
-      <td colspan="100%">
-        <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i
-        >Loading data
-      </td>
-    </tr>
-  </tbody>
-  <ng-template #loaded>
-    <tbody *ngIf="tableData.length > 0; else noColumnData">
-      <tr *ngFor="let dataList of tableData">
-        <td>{{ dataList.date }}</td>
-        <td>{{ dataList.amount }}</td>
-        <td>{{ dataList.phone }}</td>
-        <td>{{ dataList.description }}</td>
-      </tr>
-    </tbody>
-  </ng-template>
-  <ng-template #noColumnData>
-    <tbody>
-      <tr class="table-empty">
-        <td colspan="100%">
-          No data available
-        </td>
-      </tr>
-    </tbody>
-  </ng-template>
-</table>
-<app-table-footer
-  *ngIf="totalRecords"
-  [tableDataStartIndex]="setPageStartPoint"
-  [totalRecords]="totalRecords"
-  [defaultNumberOfRows]="defaultNumberOfRows"
-  [paginationListToShow]="paginationListToShow"
-  [showCurrentPage]="showCurrentPage"
-  (getPageCount)="getPageCount($event)"
-  (displayDensityEmitter)="setDisplayDensityValue($event)">
-</app-table-footer>
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col-auto">
+      <bp-search (search)="search($event)" (clearSearch)="clearSearch()"></bp-search>
+    </div>   
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table" [ngClass]="densityClassName">
+        <thead>
+          <tr>
+            <ng-container *ngIf="columnInfo">
+              <th
+                scope="col"
+                *ngFor="let column of columnInfo; let i = index"
+                [attr.aria-sort]="isSortActive ? getAriaSortOrder(i) : 'null'"
+              >
+                <button class="th-sortable" (click)="applySort(column.key, i)">
+                  {{ column.displayName }}
+                </button>
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody *ngIf="isTableLoading; else loaded">
+          <tr class="table-empty">
+            <td colspan="100%">
+              <i class="fa fa-spinner fa-spin icon-left" aria-hidden="true"></i
+              >Loading data
+            </td>
+          </tr>
+        </tbody>
+        <ng-template #loaded>
+          <tbody *ngIf="tableData.length > 0; else noColumnData">
+            <tr *ngFor="let dataList of tableData">
+              <td>{{ dataList.date }}</td>
+              <td>{{ dataList.amount }}</td>
+              <td>{{ dataList.phone }}</td>
+              <td>{{ dataList.description }}</td>
+            </tr>
+          </tbody>
+        </ng-template>
+        <ng-template #noColumnData>
+          <tbody>
+            <tr class="table-empty">
+              <td colspan="100%">
+                No data available
+              </td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+    </div>
+  </div>
+  <app-table-footer
+    *ngIf="totalRecords"
+    class="row"
+    [totalRecords]="totalRecords"
+    [defaultNumberOfRows]="defaultNumberOfRows"
+    [pageBuffer]="pageBuffer"
+    [pageNumber]="currentPage"
+    (displayDensityEmitter)="setDisplayDensity($event)"
+  ></app-table-footer>
+</div>
