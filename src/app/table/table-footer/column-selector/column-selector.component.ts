@@ -20,7 +20,6 @@ export class ColumnSelectorComponent implements AfterViewChecked {
   @Input() dropdownOptions = [];
   @Input() defaultSortColName: string;
   @Input() showColumnSelector = false;
-  @Output() selectChange = new EventEmitter();
 
   private selectedColumns = [];
 
