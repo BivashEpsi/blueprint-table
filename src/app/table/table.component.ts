@@ -159,9 +159,9 @@ export class TableComponent implements OnInit, OnChanges {
     this.tableData = this.filteredData.slice(this.startIndex, this.endIndex);
   }
 
-   // --------------- DisplayDensity ---------------
+    // --------------- DisplayDensity ---------------
 
-  setDisplayDensity(densityName) {
+    setDisplayDensity(densityName) {
     if (densityName === undefined) { this.densityClassName = null; }
     const selectedDensityValue = densityName;
     if (selectedDensityValue === 'Comfortable') {

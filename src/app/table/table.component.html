@@ -60,5 +60,6 @@
     [pageBuffer]="pageBuffer"
     [pageNumber]="currentPage"
     (displayDensityEmitter)="setDisplayDensity($event)"
+    (pageData)="paginate($event)"
   ></app-table-footer>
 </div>
