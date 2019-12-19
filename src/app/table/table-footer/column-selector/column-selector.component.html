@@ -1,5 +1,5 @@
-<div [hidden]="!showColumnSelector" class="tbl-divider">
-  <span class="tbl-footer-label-right">
+<div [hidden]="!showColumnSelector">
+  <span>
     Column Selector
   </span>
   <ng-select #columnSelectorDropdown [items]="dropdownOptions" [clearable]="false" [closeOnSelect]="false">
