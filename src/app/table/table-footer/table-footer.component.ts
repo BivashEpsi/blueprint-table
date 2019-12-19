@@ -39,7 +39,4 @@ export class TableFooterComponent implements OnInit {
   emitPageData(event) {
     this.pageData.emit(event);
   }
-
-  change($event: any) {
-  }
 }

@@ -8,7 +8,7 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() data = [];
-  @Input() columnInfo: any;
+  @Input() columnInfo: any[];
   @Input() isTableLoading = true;
 
   // Data
