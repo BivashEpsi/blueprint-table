@@ -5,5 +5,5 @@ label {
 
 .default-column::after {
   content: ' (Default)';
-  color: $storm;
+  color: $font-color-secondary;
 }

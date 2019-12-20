@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Column } from 'src/app/model/column';
 
 @Component({
   selector: 'app-table-footer',
@@ -23,7 +24,7 @@ export class TableFooterComponent implements OnInit {
   showColumnSelector = false;
 
   @Input()
-  columnInfo: any[];
+  columnInfo: Column[];
 
   @Input()
   defaultSortColName: string;

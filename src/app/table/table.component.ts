@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Column } from '../model/column';
 
 @Component({
   selector: 'bp-table',
@@ -8,16 +9,16 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() data = [];
-  @Input() columnInfo: any[];
+  @Input() columnInfo: Column[];
   @Input() isTableLoading = true;
+  @Input() defaultSortColName: string;
 
   // Data
   filteredData = [];
   tableData = [];
 
   // Sorting
-  defaultSortColName = 'amount';
-  sortColName = 'amount';
+  sortColName = this.defaultSortColName;
   colIndex: number;
   sortOrder = 'ascending';
   isSortActive = true;

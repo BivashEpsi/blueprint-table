@@ -26,20 +26,20 @@ export class ColumnSelectorComponent implements AfterViewChecked {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewChecked() {
-    this.getColumnSelectedCount();
+    this.setColumnSelectedCount();
     this.columnSelectorDropdown.writeValue(`Showing ${this.selectedColumns.length} out of ${this.dropdownOptions.length}`);
     this.cdr.detectChanges();
   }
 
   onColumnChecked($event, option) {
-    option.checked = $event.target.checked ? true : false;
-    this.getColumnSelectedCount();
+    option.isColumnDisplayed = $event.target.checked ? true : false;
+    this.setColumnSelectedCount();
   }
 
-  getColumnSelectedCount() {
+  setColumnSelectedCount() {
     if (Array.isArray(this.dropdownOptions) && this.dropdownOptions.length) {
       this.selectedColumns = this.dropdownOptions.filter((column) => {
-        return column.checked === true;
+        return column.isColumnDisplayed === true;
       });
     }
   }

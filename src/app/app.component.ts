@@ -11,12 +11,13 @@ export class AppComponent implements OnInit, OnDestroy {
   data = [];
   loadService: any;
   isDataLoading = true;
+  defaultSortColName = 'date';
 
   columnInfo = [
-    { key: 'date', displayName: 'Date', checked: true },
-    { key: 'amount', displayName: 'Amount', checked: true },
-    { key: 'phone', displayName: 'Phone', checked: true },
-    { key: 'description', displayName: 'Description', checked: true }
+    { key: 'date', displayName: 'Date', isColumnDisplayed: true },
+    { key: 'amount', displayName: 'Amount', isColumnDisplayed: true },
+    { key: 'phone', displayName: 'Phone', isColumnDisplayed: true },
+    { key: 'description', displayName: 'Description', isColumnDisplayed: true }
   ];
 
   constructor(private tableDataService: TabledataService) {}
