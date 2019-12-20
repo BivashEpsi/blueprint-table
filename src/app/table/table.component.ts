@@ -12,7 +12,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() columnInfo: Column[];
   @Input() isTableLoading = true;
   @Input() defaultSortColName: string;
-
+  @Input() showColumnSelector: boolean;
   // Data
   filteredData = [];
   tableData = [];
@@ -31,9 +31,6 @@ export class TableComponent implements OnInit, OnChanges {
   currentPage = 1;
   pageBuffer = 1;
   defaultNumberOfRows = 10;
-
-  // Column selector
-  showColumnSelector = true;
 
   constructor() {}
 

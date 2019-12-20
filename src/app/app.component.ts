@@ -11,7 +11,8 @@ export class AppComponent implements OnInit, OnDestroy {
   data = [];
   loadService: any;
   isDataLoading = true;
-  defaultSortColName = 'date';
+  defaultSortColName = 'phone';
+  showColumnSelector = true;
 
   columnInfo = [
     { key: 'date', displayName: 'Date', isColumnDisplayed: true },
