@@ -19,6 +19,9 @@ export class TableFooterComponent implements OnInit {
   @Input()
   pageNumber: number;
 
+  @Input()
+  showDisplayDensity: boolean;
+
   @Output()
   pageData = new EventEmitter();
 

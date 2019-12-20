@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-display-density',
@@ -9,6 +9,9 @@ export class DisplayDensityComponent implements OnInit {
 
   @Output()
   displayDensityEmitter = new EventEmitter();
+
+  @Input()
+  showDisplayDensity: boolean;
 
   displayDensity = 'Comfortable';
   displayDensityOptions = [

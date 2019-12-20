@@ -11,6 +11,7 @@ export class AppComponent implements OnInit, OnDestroy {
   data = [];
   loadService: any;
   isDataLoading = true;
+  showDisplayDensity = true;
 
   columnInfo = [
     { key: "date", displayName: "Date" },

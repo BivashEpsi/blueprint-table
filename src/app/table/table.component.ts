@@ -10,6 +10,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() data = [];
   @Input() columnInfo: any;
   @Input() isTableLoading = true;
+  @Input() showDisplayDensity: boolean;
 
   // Data
   filteredData = [];

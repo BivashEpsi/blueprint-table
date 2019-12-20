@@ -59,7 +59,8 @@
     [defaultNumberOfRows]="defaultNumberOfRows"
     [pageBuffer]="pageBuffer"
     [pageNumber]="currentPage"
-    (displayDensityEmitter)="setDisplayDensity($event)"
     (pageData)="paginate($event)"
+    (displayDensityEmitter)="setDisplayDensity($event)"
+    [showDisplayDensity]="showDisplayDensity"
   ></app-table-footer>
 </div>

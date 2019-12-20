@@ -3,8 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: 'table', component: AppComponent },
-  { path: '', redirectTo: '/table', pathMatch: 'full' },
+  { path: '', component: AppComponent }
 ];
 
 @NgModule({
