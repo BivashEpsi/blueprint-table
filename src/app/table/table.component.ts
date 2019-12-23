@@ -37,7 +37,7 @@ export class TableComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    const displayDensityName = localStorage.getItem('selectedView') || undefined;
+    const displayDensityName = localStorage.getItem('selectedDensity') || 'Comfortable';
     this.setDisplayDensity(displayDensityName);
   }
 
@@ -164,12 +164,11 @@ export class TableComponent implements OnInit, OnChanges {
 
     setDisplayDensity(densityName) {
     if (densityName === undefined) { this.densityClassName = null; }
-    const selectedDensityValue = densityName;
-    if (selectedDensityValue === 'Comfortable') {
+    if (densityName === 'Comfortable') {
       this.densityClassName = null;
     } else {
       this.densityClassName = 'table-compact';
     }
-    localStorage.setItem('selectedView', selectedDensityValue);
+    localStorage.setItem('selectedDensity', densityName);
   }
 }

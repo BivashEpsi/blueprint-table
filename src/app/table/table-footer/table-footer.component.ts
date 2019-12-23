@@ -37,7 +37,7 @@ export class TableFooterComponent implements OnInit {
     this.pageData.emit(event);
   }
 
-  setDisplayDensity(event: { target: { value: any; }; }) {
+  setDisplayDensity(event) {
     this.displayDensityEmitter.emit(event);
   }
 
