@@ -18,7 +18,7 @@ export class TableComponent implements OnInit, OnChanges {
   tableData = [];
 
   // Sorting
-  sortColName = this.defaultSortColName;
+  sortColName: string;
   colIndex: number;
   sortOrder = 'ascending';
   isSortActive = true;
@@ -34,7 +34,9 @@ export class TableComponent implements OnInit, OnChanges {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sortColName = this.defaultSortColName;
+  }
 
   ngOnChanges(changes) {
     if (changes.isTableLoading && changes.isTableLoading.currentValue === false && this.data.length > 0) {
