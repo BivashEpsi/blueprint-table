@@ -1,14 +1,17 @@
 <div [hidden]="!showColumnSelector">
-  <label for="columnSlector">
+  <label for="columnSelector">
     Column Selector
   </label>
-  <ng-select id="columnSlector" #columnSelectorDropdown [items]="dropdownOptions" [clearable]="false" [closeOnSelect]="false">
+  <ng-select id="columnSelector" #columnSelectorDropdown [items]="dropdownOptions" [clearable]="false" [closeOnSelect]="false">
     <ng-template ng-option-tmp let-item="item" let-index="index">
       <input type="checkbox" [disabled]="item.key === defaultSortColName" [checked]="item.isColumnDisplayed"
         (change)="onColumnChecked($event, item)" [id]="item.key" [name]="item.displayName">
-      <label [ngClass]="item.key === defaultSortColName ? 'default-column': ''"
-        [for]="item.key"> {{item.displayName}}
+      <label [for]="item.key">
+        {{item.displayName}}
       </label>
+      <span *ngIf="item.key === defaultSortColName">
+        (Default)
+      </span>
     </ng-template>
   </ng-select>
 </div>

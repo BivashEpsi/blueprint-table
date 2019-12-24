@@ -2,8 +2,3 @@
 label {
   display: inline;
 }
-
-.default-column::after {
-  content: ' (Default)';
-  color: $font-color-secondary;
-}

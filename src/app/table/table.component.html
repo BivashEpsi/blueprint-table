@@ -34,7 +34,7 @@
         <ng-template #loaded>
           <tbody *ngIf="tableData.length > 0; else noColumnData">
             <tr *ngFor="let dataList of tableData">
-              <td class="td" [hidden]="!column.isColumnDisplayed" *ngFor="let column of columnInfo">{{dataList[column.key]}}</td>
+              <td [hidden]="!column.isColumnDisplayed" *ngFor="let column of columnInfo">{{dataList[column.key]}}</td>
             </tr>
           </tbody>
         </ng-template>
