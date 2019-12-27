@@ -2,7 +2,7 @@
   <label for="columnSelector">
     Column Selector
   </label>
-  <ng-select id="columnSelector" #columnSelectorDropdown [items]="dropdownOptions" [clearable]="false" [closeOnSelect]="false">
+  <ng-select labelForId="columnSelector" #columnSelectorDropdown [items]="dropdownOptions" [clearable]="false" [closeOnSelect]="false">
     <ng-template ng-option-tmp let-item="item" let-index="index">
       <input type="checkbox" [disabled]="item.key === defaultSortColName" [checked]="item.isColumnDisplayed"
         (change)="onColumnChecked($event, item)" [id]="item.key" [name]="item.displayName">
